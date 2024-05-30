@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CancerSociety</string>
+    <string name="main_screen">Main</string>
+    <string name="what_is_screening">What is Screening?</string>
+    <string name="statistics">Statistics</string>
+    <string name="who_can_get_screened">Who can get screened?</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="quiz_correct_answer">Correct</string>
+    <string name="quiz_wrong_answer">Wrong</string>
+    <string name="quiz">Quiz question</string>
+    <string name="where_to_get_screened">Where to get screened</string>
+    <string name="barriers_to_getting_screened">Barriers to getting screened</string>
+    <string name="screening_support_services">Screening support services</string>
+    <string name="even_if_you_feel_well">Even if you feel well, you can get screened</string>
+    <string name="screening_will_help">Screening early will help determine if you need further testing</string>
+    <string name="cancer_homepage">Cancer Homepage</string>
+
+
+</resources>
