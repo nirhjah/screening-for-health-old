@@ -12,12 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import nz.ac.uclive.nse41.cancersociety.CustomButton
+import nz.ac.uclive.nse41.cancersociety.screens.CustomButton
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 
 @Composable
-fun QuizWrongAnswerScreen(navController: NavController) {
+fun QuizWrongAnswerScreen(navController: NavController, nextScreen: String?, fullSequence: Boolean, cancerType: String?) {
 
     CancerSocietyTheme(dynamicColor = false) {
         // A surface container using the 'background' color from the theme
@@ -30,14 +30,18 @@ fun QuizWrongAnswerScreen(navController: NavController) {
             Text("Wrong")
 
             Box(modifier = Modifier.fillMaxSize()) {
-                CustomButton(
-                    text = "Next",
-                    route = Screens.Symptoms.route,
-                    navController = navController,
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(16.dp)
-                )
+                if (cancerType != null) {
+                    CustomButton(
+                        text = "Next",
+                        route = Screens.Symptoms.route,
+                        navController = navController,
+                        fullSequence = true, //TODO UPDATE THIS
+                        cancerType = cancerType, //TODO CHANGE THIS
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(16.dp)
+                    )
+                }
             }
         }
     }

@@ -1,8 +1,14 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -12,12 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import nz.ac.uclive.nse41.cancersociety.CustomButton
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
+import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 
 @Composable
-fun ScreeningSupportServicesScreen(navController: NavController) {
+fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
 
     CancerSocietyTheme(dynamicColor = false) {
         // A surface container using the 'background' color from the theme
@@ -29,15 +35,35 @@ fun ScreeningSupportServicesScreen(navController: NavController) {
 
             Text("Screening Support Services")
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                CustomButton(
-                    text = "Home",
-                    route = Screens.MainMenu.route,
-                    navController = navController,
+            if (fullSequence) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    if (cancerType != null) {
+                        CustomButton(
+                            text = "Next",
+                            route = Screens.CancerHomepage.route, //TODO Fix this to go back to cancerhomepage instead
+                            navController = navController,
+                            fullSequence = fullSequence,
+                            cancerType = cancerType,
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(16.dp)
+                        )
+                    }
+                }
+            } else {
+                Box(
                     modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(16.dp)
-                )
+                        .size(48.dp)
+                        .background(Orange, shape = MaterialTheme.shapes.small)
+                ) {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black
+                        )
+                    }
+                }
             }
         }
     }

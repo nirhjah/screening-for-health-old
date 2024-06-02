@@ -2,7 +2,12 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -18,13 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
-import nz.ac.uclive.nse41.cancersociety.CustomButton
+import nz.ac.uclive.nse41.cancersociety.screens.CustomButton
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
+import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 
 @Composable
-fun WhatIsScreening(navController: NavController) {
+fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     CancerSocietyTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -36,17 +42,38 @@ fun WhatIsScreening(navController: NavController) {
 
 
 
+               if (fullSequence) {
+                   Box(modifier = Modifier.fillMaxSize()) {
+                       if (cancerType != null) {
+                           CustomButton(
+                               text = "Next",
+                               route = Screens.Statistics.route, //need to pass the fullSeuqence here
+                               navController = navController,
+                               fullSequence = fullSequence,
+                               cancerType = cancerType,
+                               modifier = Modifier
+                                   .align(Alignment.BottomEnd)
+                                   .padding(16.dp)
+                           )
+                       }
+                   }
+               } else {
+                   Box(
+                       modifier = Modifier
+                           .size(48.dp) // Size of the IconButton
+                           .background(Orange, shape = MaterialTheme.shapes.small) // Background color
+                   ) {
+                       IconButton(onClick = { navController.popBackStack() }) {
+                           Icon(
+                               imageVector = Icons.Filled.ArrowBack,
+                               contentDescription = "Back",
+                               tint = Color.Black // Icon color
+                           )
+                       }
+                   }
+               }
 
-                Box(modifier = Modifier.fillMaxSize()) {
-                    CustomButton(
-                        text = "Next",
-                        route = Screens.Statistics.route,
-                        navController = navController,
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(16.dp)
-                    )
-                }
+
             }
         }
     }

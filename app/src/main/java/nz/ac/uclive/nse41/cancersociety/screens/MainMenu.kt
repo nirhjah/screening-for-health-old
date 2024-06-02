@@ -1,4 +1,4 @@
-package nz.ac.uclive.nse41.cancersociety
+package nz.ac.uclive.nse41.cancersociety.screens
 
 import android.annotation.SuppressLint
 
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -27,7 +28,6 @@ import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
 fun MainMenuScreen(navController: NavController) {
@@ -48,7 +48,7 @@ fun MainMenuScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Text("Cancer Screening", fontSize = 60.sp, modifier = Modifier
+                Text("Screening for Health", fontSize = 60.sp, modifier = Modifier
                     .padding(50.dp) )
 
 
@@ -78,7 +78,6 @@ fun MainMenuScreen(navController: NavController) {
     }
 
     BackHandler {
-        // Stop user from going back to Race screen
     }
 }
 
@@ -92,7 +91,7 @@ fun NavButton(
     Button(
         onClick = { navController.navigate("${Screens.CancerHomepage.route}/$text") },
         colors = colors,
-        modifier = modifier
+        modifier = modifier.semantics { testTag = "text1" }
     ) {
         Text(text, fontSize = 40.sp, color = Color.Black)
     }
@@ -105,11 +104,13 @@ fun CustomButton(
     text: String,
     route: String,
     navController: NavController,
+    fullSequence: Boolean,
+    cancerType: String,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Orange),
     modifier: Modifier = Modifier.height(150.dp).width(400.dp)
 ) {
     Button(
-        onClick = { navController.navigate(route) },
+        onClick = { navController.navigate("$route/$fullSequence/$cancerType") },
         colors = colors,
         modifier = modifier
     ) {
