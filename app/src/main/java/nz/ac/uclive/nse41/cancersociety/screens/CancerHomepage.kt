@@ -1,5 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,8 +32,10 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.Pink
 
 @Composable
 fun CancerHomepageScreen(navController: NavController, cancerType: String) {
+    Log.d("MyActivity", cancerType)
     val containerColor = getCancerTypeColor(cancerType)
     val context = LocalContext.current
+    var fullSequence = false
     CancerSocietyTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -49,7 +54,8 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
                             .padding(start = 66.dp, top = 32.dp)
-                            .align(Alignment.Start),
+                            .align(Alignment.Start)
+                            .semantics { testTag = "cancerHomepageTitle" } ,
                         textAlign = TextAlign.Left,
                         color = Color.Black
                     )
@@ -126,7 +132,9 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable { navController.navigate(Screens.WhatIsScreening.route) }
+                                        .clickable { navController.navigate("${Screens.WhatIsScreening.route}/$fullSequence/$cancerType") }
+
+
                                 ) {
                                     Box(
                                         contentAlignment = Alignment.Center,
@@ -160,7 +168,10 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable { navController.navigate(Screens.Statistics.route) }
+                                        .clickable {
+                                            Log.d("MyActivity", cancerType + "stats")
+
+                                            navController.navigate("${Screens.Statistics.route}/$fullSequence/$cancerType") }
 
                                 ) {
                                     Box(
@@ -195,7 +206,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable { navController.navigate(Screens.WhoCanGetScreened.route) }
+                                        .clickable { navController.navigate("${Screens.WhoCanGetScreened.route}/$fullSequence/$cancerType") }
 
                                 ) {
                                     Box(
@@ -230,7 +241,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable { navController.navigate(Screens.WhereToGetScreened.route) }
+                                        .clickable {  navController.navigate("${Screens.WhereToGetScreened.route}/$fullSequence/$cancerType") }
 
                                 ) {
                                     Box(
@@ -265,7 +276,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable { navController.navigate(Screens.BarriersToGettingScreened.route) }
+                                        .clickable {  navController.navigate("${Screens.BarriersToGettingScreened.route}/$fullSequence/$cancerType") }
 
                                 ) {
                                     Box(
@@ -307,11 +318,10 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                 modifier = Modifier
                                     .size(width = 310.dp, height = 80.dp)
                                     .clickable {
-                                        //TODO: Clicking on this will take the user through the full sequence
-                                        //send a var through indicating it is for user to go through full sequence (bool fullSequence = true/false)
-                                        //each page should take in the var to determine if there should be a 'next' button on the screen or not
-                                        //what is screening -> stats -> who can get screened -> where to get screened -> barriers to getting screened -> screening support services
-                                        Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+                                        fullSequence = true
+                                        navController.navigate("${Screens.WhatIsScreening.route}/$fullSequence/$cancerType")
+
+
                                     }
                             ) {
                                 Row(

@@ -1,0 +1,80 @@
+{
+  "cancers": [
+    {
+      "cancer": "Breast Cancer",
+      "subsections": [
+        {
+          "subsection": "Statistics",
+          "info": ["Breast cancer statistics content 1", "Breast cancer statistics content 2"]
+        },
+        {
+          "subsection": "Who can get screened",
+          "info": ["Who can get screened for breast cancer content"]
+        },
+        {
+          "subsection": "Where to get screened",
+          "info": ["Who can get screened for breast cancer content"]
+        },
+        {
+          "subsection": "Barriers to getting screened",
+          "info": ["Who can get screened for breast cancer content"]
+        },
+        {
+          "subsection": "Screening support services",
+          "info": ["screening support services breast cancer content"]
+        }
+      ]
+    },
+    {
+      "cancer": "Bowel Cancer",
+      "subsections": [
+        {
+          "subsection": "Statistics",
+          "info": ["Bowel cancer statistics content 1", "Bowel cancer statistics content 2"]
+        },
+        {
+          "subsection": "Who can get screened",
+          "info": ["Who can get screened for bowel cancer content"]
+        },
+        {
+          "subsection": "Where to get screened",
+          "info": ["Who can get screened for bowel cancer content"]
+        },
+        {
+          "subsection": "Barriers to getting screened",
+          "info": ["Who can get screened for bowel cancer content"]
+        },
+        {
+          "subsection": "Screening support services",
+          "info": ["screening support services bowel cancer content"]
+        }
+      ]
+    },
+    {
+      "cancer": "Cervical Cancer",
+      "subsections": [
+        {
+          "subsection": "Statistics",
+          "info": ["cervical cancer statistics content 1", "cervical cancer statistics content 2"]
+        },
+        {
+          "subsection": "Who can get screened",
+          "info": ["Who can get screened for cervical cancer content"]
+        },
+        {
+          "subsection": "Where to get screened",
+          "info": ["Who can get screened for cervical cancer content"]
+        },
+        {
+          "subsection": "Barriers to getting screened",
+          "info": ["Who can get screened for cervical cancer content"]
+        },
+        {
+          "subsection": "Screening support services",
+          "info": ["screening support services cervical cancer content"]
+        }
+      ]
+    }
+
+  ]
+}
