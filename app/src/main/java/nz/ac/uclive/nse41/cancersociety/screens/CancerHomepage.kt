@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
@@ -36,6 +38,33 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
     val containerColor = getCancerTypeColor(cancerType)
     val context = LocalContext.current
     var fullSequence = false
+
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp
+    Log.d("This is screen",  " this is screenwdith " + screenWidthDp)
+    val fontSize = when {
+        screenWidthDp < 412 -> 54.sp
+        else -> 84.sp
+    }
+    val start = when {
+        screenWidthDp < 412 -> 10.dp
+        else -> 66.dp
+    }
+    val topStart = when {
+        screenWidthDp < 412 -> 70.dp
+        else -> 100.dp
+    }
+    val topEnd = when {
+        screenWidthDp < 412 -> 70.dp
+        else -> 100.dp
+    }
+    val topPadding = when {
+        screenWidthDp < 412 -> 26.dp
+        else -> 0.dp
+    }
+
+
+
     CancerSocietyTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -48,12 +77,15 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
+
+
+
                     Text(
                         text = cancerType,
-                        fontSize = 84.sp,
+                        fontSize = fontSize,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .padding(start = 66.dp, top = 32.dp)
+                            .padding(start = start, top = 32.dp) //66, 32
                             .align(Alignment.Start)
                             .semantics { testTag = "cancerHomepageTitle" } ,
                         textAlign = TextAlign.Left,
@@ -66,7 +98,10 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .fillMaxHeight(0.95f)
-                            .background(Color.White, shape = RoundedCornerShape(topStart = 100.dp, topEnd = 100.dp))
+                            .background(
+                                Color.White,
+                                shape = RoundedCornerShape(topStart = topStart, topEnd = topEnd) //100, 100
+                            )
                             .verticalScroll(rememberScrollState())
                             .padding(16.dp),
                         contentAlignment = Alignment.Center
@@ -74,8 +109,10 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth().padding(top = topPadding)
+
                         ) {
+
                             ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
@@ -86,9 +123,16 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                     .size(width = 680.dp, height = 80.dp)
                                     .clickable {
                                         //TODO go to quiz
-                                        Toast.makeText(context, "Quiz feature coming soon", Toast.LENGTH_SHORT).show()
+                                        Toast
+                                            .makeText(
+                                                context,
+                                                "Quiz feature coming soon",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                            .show()
                                     }
                             ) {
+
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.padding(16.dp)
@@ -107,6 +151,9 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                     )
                                 }
                             }
+
+
+
                             Spacer(modifier = Modifier.height(20.dp))
 
                             Divider(thickness = 1.dp, color = Color.LightGray)
@@ -125,7 +172,8 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             Spacer(modifier = Modifier.height(20.dp))
 
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                modifier = Modifier.horizontalScroll(rememberScrollState())
                             ) {
                                 Card(
                                     colors = CardDefaults.cardColors(containerColor = containerColor,
@@ -171,7 +219,8 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         .clickable {
                                             Log.d("MyActivity", cancerType + "stats")
 
-                                            navController.navigate("${Screens.Statistics.route}/$fullSequence/$cancerType") }
+                                            navController.navigate("${Screens.Statistics.route}/$fullSequence/$cancerType")
+                                        }
 
                                 ) {
                                     Box(
@@ -241,7 +290,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable {  navController.navigate("${Screens.WhereToGetScreened.route}/$fullSequence/$cancerType") }
+                                        .clickable { navController.navigate("${Screens.WhereToGetScreened.route}/$fullSequence/$cancerType") }
 
                                 ) {
                                     Box(
@@ -276,7 +325,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable {  navController.navigate("${Screens.BarriersToGettingScreened.route}/$fullSequence/$cancerType") }
+                                        .clickable { navController.navigate("${Screens.BarriersToGettingScreened.route}/$fullSequence/$cancerType") }
 
                                 ) {
                                     Box(

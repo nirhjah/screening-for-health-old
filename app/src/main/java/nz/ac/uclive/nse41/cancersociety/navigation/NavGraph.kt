@@ -19,6 +19,9 @@ import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizCorrectAnswerScr
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizWrongAnswerScreen
 
+/**
+ * Navigation component of the application, which handles navigation between screens and what information to pass between screens
+ */
 @Composable
 fun NavGraph (navController: NavHostController) {
 

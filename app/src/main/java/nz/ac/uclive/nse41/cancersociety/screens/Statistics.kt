@@ -19,12 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
 fun StatisticsScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
@@ -52,7 +54,11 @@ fun StatisticsScreen(navController: NavController, fullSequence: Boolean, cancer
                     verticalArrangement = Arrangement.spacedBy(50.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Statistics")
+                    Text(
+                        text = "Statistics",
+                        fontSize = responsiveFontSize(),
+                        fontWeight = FontWeight.Bold
+                    )
 
                     if (statisticsSubsection != null) {
                         statisticsSubsection.info.forEach { string ->
@@ -83,7 +89,7 @@ fun StatisticsScreen(navController: NavController, fullSequence: Boolean, cancer
                             .background(
                                 Orange,
                                 shape = MaterialTheme.shapes.small
-                            )
+                            ).align(Alignment.BottomStart)
                     ) {
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(

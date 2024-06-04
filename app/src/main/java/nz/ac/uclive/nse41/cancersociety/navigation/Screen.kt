@@ -3,6 +3,9 @@ package nz.ac.uclive.nse41.cancersociety.navigation
 import androidx.annotation.StringRes
 import nz.ac.uclive.nse41.cancersociety.R
 
+/**
+ * Defines all Screens within the app, for navigation purposes.
+ */
 sealed class Screens(val route: String, @StringRes val resourceId: Int) {
     object MainMenu : Screens("main_menu", R.string.main_screen)
     object CancerHomepage : Screens("cancer_homepage", R.string.cancer_homepage)

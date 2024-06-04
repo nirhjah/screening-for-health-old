@@ -1,9 +1,11 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -21,13 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
+/**
+ * The Main Menu of the app which displays the 3 buttons to go to each cancer homepage
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
 fun MainMenuScreen(navController: NavController) {
@@ -48,9 +55,11 @@ fun MainMenuScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Text("Screening for Health", fontSize = 60.sp, modifier = Modifier
-                    .padding(50.dp) )
 
+                Text(
+                    "Screening for Health", fontSize = responsiveFontSize(), fontWeight = FontWeight.Bold, modifier = Modifier
+                        .padding(0.dp)
+                )
 
                 NavButton(
                     text = "Breast Cancer",
@@ -66,14 +75,9 @@ fun MainMenuScreen(navController: NavController) {
                     text = "Cervical Cancer",
                     navController = navController
                 )
-
-
             }
 
-
         }
-
-
 
     }
 
@@ -86,7 +90,9 @@ fun NavButton(
     text: String,
     navController: NavController,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Orange),
-    modifier: Modifier = Modifier.height(150.dp).width(400.dp)
+    modifier: Modifier = Modifier
+        .height(150.dp)
+        .width(400.dp)
 ) {
     Button(
         onClick = { navController.navigate("${Screens.CancerHomepage.route}/$text") },
@@ -107,7 +113,9 @@ fun CustomButton(
     fullSequence: Boolean,
     cancerType: String,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Orange),
-    modifier: Modifier = Modifier.height(150.dp).width(400.dp)
+    modifier: Modifier = Modifier
+        .height(150.dp)
+        .width(400.dp)
 ) {
     Button(
         onClick = { navController.navigate("$route/$fullSequence/$cancerType") },

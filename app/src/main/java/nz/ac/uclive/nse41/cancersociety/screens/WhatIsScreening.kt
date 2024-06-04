@@ -1,3 +1,5 @@
+import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -16,9 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -28,9 +33,12 @@ import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
 
 @Composable
 fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerType: String?) {
+
     CancerSocietyTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -38,7 +46,17 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                AnimatedImageSlide()
+
+                val configuration = LocalConfiguration.current
+                val orientation = configuration.orientation
+                Log.d("Orientation", "The orientation is: " + orientation)
+
+                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    AnimatedImageSlide(portrait = true)
+                } else {
+                    AnimatedImageSlide(portrait = false)
+                }
+
 
 
 
@@ -60,14 +78,16 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
                } else {
                    Box(
                        modifier = Modifier
-                           .size(48.dp) // Size of the IconButton
-                           .background(Orange, shape = MaterialTheme.shapes.small) // Background color
+                           .size(48.dp)
+                           .background(Orange, shape = MaterialTheme.shapes.small)
+                           .align(Alignment.BottomStart)
                    ) {
-                       IconButton(onClick = { navController.popBackStack() }) {
+                       IconButton(
+                           onClick = { navController.popBackStack() }) {
                            Icon(
                                imageVector = Icons.Filled.ArrowBack,
                                contentDescription = "Back",
-                               tint = Color.Black // Icon color
+                               tint = Color.Black
                            )
                        }
                    }
@@ -79,113 +99,247 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
     }
 }
 
+
 @Composable
-fun AnimatedImageSlide() {
+fun ScreeningInfoColumn(
+    fontSize: TextUnit,
+    hospitalSize: Dp,
+    alpha: Float,
+    textToShow: Int
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(50.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "What is Screening?",
+            fontSize = fontSize,
+            fontWeight = FontWeight.Bold
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.hospital),
+            contentDescription = "hospital",
+            modifier = Modifier.size(hospitalSize) //350
+        )
+
+        Text(
+            text = stringResource(textToShow),
+            fontSize = 30.sp,
+            modifier = Modifier.graphicsLayer(alpha = alpha),
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+
+
+
+@Composable
+fun AnimatedImageSlide(portrait: Boolean) {
+
     var startAnimation by remember { mutableStateOf(false) }
     var textToShow by remember { mutableStateOf(R.string.even_if_you_feel_well) }
     var textAlpha by remember { mutableStateOf(1f) }
-
-
-    var women2Offset by remember { mutableStateOf(110.dp) }
-    var women3Offset by remember { mutableStateOf(220.dp) }
-
-    val offsetX by animateDpAsState(
-        targetValue = if (startAnimation) 0.dp else (-550).dp,
-        animationSpec = tween(durationMillis = 4000)
-    )
 
     val alpha by animateFloatAsState(
         targetValue = textAlpha,
         animationSpec = tween(durationMillis = 1000)
     )
 
-    LaunchedEffect(Unit) {
-        delay(1000)
-        startAnimation = true
-        delay(3000)
-        textAlpha = 0f
-        delay(1200)
-        textToShow = R.string.screening_will_help
-        textAlpha = 1f
+    if (!portrait) {
+        Log.d("portrait or not:", portrait.toString() + " should NOT be ")
 
-        delay(1300)
-        women2Offset += 200.dp
-        women3Offset += 200.dp
-    }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
+        var women2Offset by remember { mutableStateOf(110.dp) }
+        var women3Offset by remember { mutableStateOf(220.dp) }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(50.dp),
-            verticalArrangement = Arrangement.spacedBy(50.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        val offsetX by animateDpAsState(
+            targetValue = if (startAnimation) 0.dp else (-550).dp,
+            animationSpec = tween(durationMillis = 4000)
+        )
+
+
+
+
+
+        LaunchedEffect(Unit) {
+            delay(1000)
+            startAnimation = true
+            delay(3000)
+            textAlpha = 0f
+            delay(1200)
+            textToShow = R.string.screening_will_help
+            textAlpha = 1f
+
+            delay(1300)
+            women2Offset += 200.dp //200
+            women3Offset += 200.dp //200
+        }
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
 
-            Text(
-                text = "What is Screening?",
-                fontSize = 50.sp,
-                fontWeight = FontWeight.Bold
+            ScreeningInfoColumn(
+                fontSize = responsiveFontSize(),
+                hospitalSize = responsiveHospitalImage(),
+                alpha = alpha,
+                textToShow = textToShow
+
+            )
+
+
+
+            Image(
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women1",
+                modifier = Modifier
+                    .size(350.dp) //350
+                    .offset(x = offsetX, y = 0.dp)
+            )
+
+            // Animation for women2
+            val women2OffsetAnimated by animateDpAsState(
+                targetValue = if (startAnimation) women2Offset else (women2Offset),
+                animationSpec = tween(durationMillis = 4000)
+            )
+
+            val women3OffsetAnimated by animateDpAsState(
+                targetValue = if (startAnimation) women3Offset else (women3Offset),
+                animationSpec = tween(durationMillis = 4000)
             )
 
             Image(
-                painter = painterResource(id = R.drawable.hospital),
-                contentDescription = "hospital",
-                modifier = Modifier.size(350.dp)
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women2",
+                modifier = Modifier
+                    .size(350.dp) //350
+                    .offset(x = offsetX + women2OffsetAnimated)
             )
 
+            // Animation for women3
 
-            Text(
-                text = stringResource(textToShow),
-                fontSize = 30.sp,
-                modifier = Modifier.graphicsLayer(alpha = alpha),
-                fontWeight = FontWeight.Bold
+
+            Image(
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women3",
+                modifier = Modifier
+                    .size(350.dp) //350
+                    .offset(x = offsetX + women3OffsetAnimated)
             )
-
-
-
         }
 
 
 
-        Image(
-            painter = painterResource(id = R.drawable.women1),
-            contentDescription = "women1",
-            modifier = Modifier
-                .size(350.dp)
-                .offset(x = offsetX)
-        )
 
-        // Animation for women2
-        val women2OffsetAnimated by animateDpAsState(
-            targetValue = if (startAnimation) women2Offset else (women2Offset),
+    } else {
+        Log.d("Orientation", portrait.toString() + " should be portrait")
+
+        var women1Offsety by remember { mutableStateOf(-250.dp) }
+
+        var women2Offsetx by remember { mutableStateOf(70.dp) } //110
+        var women2Offsety by remember { mutableStateOf(-250.dp) }
+
+        var women3Offsetx by remember { mutableStateOf(160.dp) } //220
+        var women3Offsety by remember { mutableStateOf(-250.dp) }
+
+        val offsetX by animateDpAsState(
+            targetValue = if (startAnimation) (-70).dp else (-150).dp,
             animationSpec = tween(durationMillis = 4000)
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.women1),
-            contentDescription = "women2",
-            modifier = Modifier
-                .size(350.dp)
-                .offset(x = offsetX + women2OffsetAnimated)
-        )
 
-        // Animation for women3
-        val women3OffsetAnimated by animateDpAsState(
-            targetValue = if (startAnimation) women3Offset else (women3Offset),
-            animationSpec = tween(durationMillis = 4000)
-        )
+        LaunchedEffect(Unit) {
+            delay(1000)
+            startAnimation = true
+            delay(3000)
+            textAlpha = 0f
+            delay(1200)
+            textToShow = R.string.screening_will_help
+            textAlpha = 1f
 
-        Image(
-            painter = painterResource(id = R.drawable.women1),
-            contentDescription = "women3",
-            modifier = Modifier
-                .size(350.dp)
-                .offset(x = offsetX + women3OffsetAnimated)
-        )
+            delay(1300)
+            women2Offsety += 390.dp //200
+            women3Offsety += 390.dp //200
+
+
+        }
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+
+            ScreeningInfoColumn(
+                fontSize = responsiveFontSize(),
+                hospitalSize = responsiveHospitalImage(),
+                alpha = alpha,
+                textToShow = textToShow
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women1",
+                modifier = Modifier
+                    .size(300.dp) //350
+                    .offset(x = offsetX, y = women1Offsety)
+            )
+
+            // Animation for women2
+            val women2OffsetxAnimated by animateDpAsState(
+                targetValue = if (startAnimation) women2Offsetx else (women2Offsetx),
+                animationSpec = tween(durationMillis = 4000)
+            )
+            val women2OffsetyAnimated by animateDpAsState(
+                targetValue = if (startAnimation) women2Offsety else (women2Offsety),
+                animationSpec = tween(durationMillis = 4000)
+            )
+
+            // Animation for women3
+            val women3OffsetxAnimated by animateDpAsState(
+                targetValue = if (startAnimation) women3Offsetx else (women3Offsetx),
+                animationSpec = tween(durationMillis = 4000)
+            )
+            val women3OffsetyAnimated by animateDpAsState(
+                targetValue = if (startAnimation) women3Offsety else (women3Offsety),
+                animationSpec = tween(durationMillis = 4000)
+            )
+
+
+            Image(
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women2",
+                modifier = Modifier
+                    .size(300.dp) //350
+                    .offset(x = offsetX + women2OffsetxAnimated, y = women2OffsetyAnimated)
+            )
+
+
+            Image(
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women3",
+                modifier = Modifier
+                    .size(300.dp) //350
+                    .offset(x = offsetX + women3OffsetxAnimated, y = women3OffsetyAnimated)
+            )
+        }
+
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+

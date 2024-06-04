@@ -18,13 +18,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
 fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
@@ -32,6 +36,9 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
     val cancerInfo = getCancerInfoFromJson(context, "CancerInfo.json")
     val selectedCancer = cancerInfo?.cancers?.find { it.cancer == cancerType }
     val whereToGetScreenedSubSection = selectedCancer?.subsections?.find { it.subsection == "Where to get screened" }
+
+
+
 
     CancerSocietyTheme(dynamicColor = false) {
         // A surface container using the 'background' color from the theme
@@ -49,7 +56,12 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     verticalArrangement = Arrangement.spacedBy(50.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Where to get screened")
+                    Text(
+                        text = "Where to get screened",
+                        fontSize = responsiveFontSize(),
+                        fontWeight = FontWeight.Bold
+                    )
+
 
                     whereToGetScreenedSubSection?.info?.forEach { string ->
                         Text(text = string)
@@ -76,6 +88,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     modifier = Modifier
                         .size(48.dp)
                         .background(Orange, shape = MaterialTheme.shapes.small)
+                        .align(Alignment.BottomStart)
                 ) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
