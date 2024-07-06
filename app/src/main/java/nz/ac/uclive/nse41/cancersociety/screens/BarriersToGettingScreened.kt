@@ -35,9 +35,6 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
     val context = LocalContext.current
     val cancerInfo = getCancerInfoFromJson(context, "CancerInfo.json")
     val selectedCancer = cancerInfo?.cancers?.find { it.cancer == cancerType }
-    val whereToGetScreenedSubSection = selectedCancer?.subsections?.find { it.subsection == "Where to get screened" }
-
-
 
 
     CancerSocietyTheme(dynamicColor = false) {
@@ -62,10 +59,6 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
                         fontWeight = FontWeight.Bold
                     )
 
-
-                    /*     whereToGetScreenedSubSection?.info?.forEach { string ->
-                             Text(text = string)
-                         }*/
                 }
 
                 if (fullSequence) {

@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
 fun SymptomsScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
@@ -35,7 +37,11 @@ fun SymptomsScreen(navController: NavController, fullSequence: Boolean, cancerTy
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
 
-            Text("Symptoms")
+                Text(
+                    text = "Symptoms",
+                    fontSize = responsiveFontSize(),
+                    fontWeight = FontWeight.Bold
+                )
 
 
             if (fullSequence) {

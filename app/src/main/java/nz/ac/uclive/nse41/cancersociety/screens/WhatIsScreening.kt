@@ -156,7 +156,7 @@ fun AnimatedImageSlide(portrait: Boolean) {
 
         var women2Offset by remember { mutableStateOf(110.dp) }
         var women3Offset by remember { mutableStateOf(220.dp) }
-
+        var women1Offset by remember { mutableStateOf(0.dp) }
         val offsetX by animateDpAsState(
             targetValue = if (startAnimation) 0.dp else (-550).dp,
             animationSpec = tween(durationMillis = 4000)
@@ -171,13 +171,14 @@ fun AnimatedImageSlide(portrait: Boolean) {
             startAnimation = true
             delay(3000)
             textAlpha = 0f
-            delay(1200)
+            delay(1400)
             textToShow = R.string.screening_will_help
             textAlpha = 1f
-
             delay(1300)
-            women2Offset += 200.dp //200
-            women3Offset += 200.dp //200
+            women2Offset += 300.dp //200
+            women3Offset += 300.dp //200
+            delay(2400)
+            women1Offset += 295.dp
         }
 
         Box(
@@ -193,14 +194,25 @@ fun AnimatedImageSlide(portrait: Boolean) {
 
             )
 
+            val women1OffsetAnimated by animateDpAsState(
+                targetValue = women1Offset,
+                animationSpec = tween(durationMillis = 4000)
+            )
 
+          /*  Image(
+                painter = painterResource(id = R.drawable.women1),
+                contentDescription = "women1",
+                modifier = Modifier
+                    .size(350.dp) //350
+                    .offset(x = offsetX, y = 0.dp)
+            )*/
 
             Image(
                 painter = painterResource(id = R.drawable.women1),
                 contentDescription = "women1",
                 modifier = Modifier
                     .size(350.dp) //350
-                    .offset(x = offsetX, y = 0.dp)
+                    .offset(x = offsetX + women1OffsetAnimated)
             )
 
             // Animation for women2

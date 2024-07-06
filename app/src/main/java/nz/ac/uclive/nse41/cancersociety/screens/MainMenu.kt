@@ -1,11 +1,9 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -63,16 +61,19 @@ fun MainMenuScreen(navController: NavController) {
 
                 NavButton(
                     text = "Breast Cancer",
+                    cancerType = "Breast Cancer",
                     navController = navController
                 )
 
                 NavButton(
                     text = "Bowel Cancer",
+                    cancerType = "Bowel Cancer",
                     navController = navController
                 )
 
                 NavButton(
                     text = "Cervical Cancer",
+                    cancerType = "Cervical Cancer",
                     navController = navController
                 )
             }
@@ -88,6 +89,7 @@ fun MainMenuScreen(navController: NavController) {
 @Composable
 fun NavButton(
     text: String,
+    cancerType: String,
     navController: NavController,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Orange),
     modifier: Modifier = Modifier
@@ -95,7 +97,7 @@ fun NavButton(
         .width(400.dp)
 ) {
     Button(
-        onClick = { navController.navigate("${Screens.CancerHomepage.route}/$text") },
+        onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
         colors = colors,
         modifier = modifier.semantics { testTag = "text1" }
     ) {

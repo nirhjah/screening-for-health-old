@@ -8,7 +8,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-
+/**
+ * Sets font size of text (for headers) depending on screen size/orientation
+ */
 @Composable
 fun responsiveFontSize(): TextUnit {
     val configuration = LocalConfiguration.current
@@ -21,6 +23,9 @@ fun responsiveFontSize(): TextUnit {
 }
 
 
+/**
+ * Sets size of the hospital image displayed on the what is screening page, depending on screen size/orientation
+ */
 @Composable
 fun responsiveHospitalImage(): Dp {
     val configuration = LocalConfiguration.current

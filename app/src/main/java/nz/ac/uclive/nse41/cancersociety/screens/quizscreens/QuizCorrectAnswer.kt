@@ -1,6 +1,8 @@
 package nz.ac.uclive.nse41.cancersociety.screens.quizscreens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -10,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.screens.CustomButton
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
+import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
 fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, fullSequence: Boolean, cancerType: String?) {
@@ -26,9 +30,21 @@ fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, f
             color = MaterialTheme.colorScheme.background,
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
+            Box(modifier = Modifier.fillMaxSize()) {
 
-            Text("Correct")
-            Text("next screen: $nextScreen")
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(50.dp),
+                    verticalArrangement = Arrangement.spacedBy(50.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+            Text(
+                text = "Correct!",
+                fontSize = responsiveFontSize(),
+                fontWeight = FontWeight.Bold
+            )
 
             val nextScreenRoute = screenRoutesMap[nextScreen] ?: Screens.MainMenu.route
 
@@ -46,6 +62,8 @@ fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, f
                     )
                 }
             }
+        }
+    }
         }
     }
 }
