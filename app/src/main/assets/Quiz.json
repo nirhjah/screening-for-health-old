@@ -1,0 +1,140 @@
+{
+  "Breast Cancer": [
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "Who can get a free mammogram?",
+      "answers": [
+        "Those with symptoms of breast cancer",
+        "Those aged 45-69",
+        "Those who had a mammogram in the last 12 months",
+        "Those who are pregnant or breastfeeding"
+      ],
+      "correctAnswer": "Those aged 45-69",
+      "response": "Those aged 45-69 can get a free mammogram! Did you know you can still get screened even if you feel well?"
+    },
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "Where can you find a BreastScreen clinic?",
+      "answers": [
+        "In big cities only",
+        "South Island only",
+        "North Island only",
+        "All across the country"
+      ],
+      "correctAnswer": "All across the country",
+      "response": "With BreastScreen clinics all across the country, including several mobile clinics throughout the year, there's sure to be one near you!"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "How often can you do a free mammogram?",
+      "answers": [
+        "2 years",
+        "3 years",
+        "4 years",
+        "5 years"
+      ],
+      "correctAnswer": "2 years",
+      "response": "You can get your free mammogram every 2 years. Did you know you can still get screened even if you feel well?"
+    },
+    {
+      "subsection": "BarriersToGettingScreened",
+      "question": "Have you faced any of these barriers before?",
+      "answers": [
+        "Access",
+        "Trust",
+        "Mindset",
+        "All of the above"
+      ],
+      "correctAnswer": "All of the above",
+      "response": "There are many support services in place to help you through the process, continue to find out more!"
+    }
+  ],
+  "Cervical Cancer": [
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "Where can you get your cervical screen done?",
+      "answers": [
+        "Your usual doctor/nurse at a GP clinic",
+        "Māori, Pacific or women’s community health centres",
+        "At home",
+        "Usual doctor/nurse or Māori/Pacific/women's community health centre"
+      ],
+      "correctAnswer": "Usual doctor/nurse or Māori/Pacific/women's community health centre",
+      "response": "You can get screened at your usual doctor or nurse or Māori, Pacific, or women's community health centre!"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "Who can get a free cervical test?",
+      "answers": [
+        "Māori and Pacific women aged 25 to 69",
+        "Women aged 25 to 69 with a community services card",
+        "Women over the age of 30 who have never been screened or not screened within 5 years",
+        "All of the above"
+      ],
+      "correctAnswer": "All of the above",
+      "response": "Did you know you can still get screened even if you feel healthy?"
+    },
+    {
+      "subsection": "BarriersToGettingScreened",
+      "question": "Have you faced any of these barriers before?",
+      "answers": [
+        "Access",
+        "Trust",
+        "Mindset",
+        "All of the above"
+      ],
+      "correctAnswer": "All of the above",
+      "response": "There are many support services in place to help you through the process, continue to find out more!"
+    }
+  ],
+  "Bowel Cancer": [
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "Where can you do your bowel screening test?",
+      "answers": [
+        "At a clinic",
+        "At a hospital",
+        "At home",
+        "At your GP"
+      ],
+      "correctAnswer": "At home",
+      "response": "You can do the bowel screening test at the comfort of your own home, and it is easy to do!"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "Who can get a free bowel screening test kit?",
+      "answers": [
+        "Anyone aged 60-74",
+        "Men aged 60-74",
+        "Anyone aged over 74",
+        "Women aged 60-74"
+      ],
+      "correctAnswer": "Anyone aged 60-74",
+      "response": "Anyone aged 60-74 can get a free test kit. Did you know you can still get screened even if you feel well?"
+    },
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "How often will you receive your bowel screening test kit?",
+      "answers": [
+        "2 years",
+        "3 years",
+        "4 years",
+        "5 years"
+      ],
+      "correctAnswer": "2 years",
+      "response": "Screening regularly is important as it can look out for very early signs of cancer!"
+    },
+    {
+      "subsection": "BarriersToGettingScreened",
+      "question": "Have you faced any of these barriers before?",
+      "answers": [
+        "Access",
+        "Trust",
+        "Mindset",
+        "All of the above"
+      ],
+      "correctAnswer": "All of the above",
+      "response": "There are many support services in place to help you through the process, continue to find out more!"
+    }
+  ]
+}

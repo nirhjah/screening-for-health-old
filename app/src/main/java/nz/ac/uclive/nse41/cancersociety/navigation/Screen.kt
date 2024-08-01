@@ -19,5 +19,7 @@ sealed class Screens(val route: String, @StringRes val resourceId: Int) {
     object Quiz : Screens("quiz", R.string.quiz)
     object QuizCorrectAnswer : Screens("quiz_correct_answer", R.string.quiz_correct_answer)
     object QuizWrongAnswer : Screens("quiz_wrong_answer", R.string.quiz_wrong_answer)
+    object QuizAnswer : Screens("quiz_answer", R.string.quiz_answer)
+
 
 }

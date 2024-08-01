@@ -1,7 +1,9 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import CustomButton
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -32,6 +34,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -70,6 +73,19 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
     val initialOffsetX: Dp = (-300).dp
     val offsetX = remember { Animatable(initialOffsetX.value) }
     var showCard by remember { mutableStateOf(false) }
+
+
+    var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            val timeSpent = System.currentTimeMillis() - startTime
+            Log.d("WhereToGetScreenedScreen", "Time spent: $timeSpent ms")
+
+            saveLogToFile(context, "WhereToGetScreenedScreen", timeSpent, cancerType.toString())
+        }
+    }
+
 
     LaunchedEffect(Unit) {
         delay(500)
@@ -128,8 +144,16 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     }
                 }
 
+
+                val imageRes1 = if (cancerType == "Bowel Cancer") {
+                    R.drawable.men3
+                } else {
+                    R.drawable.women3
+                }
+
+
                 Image(
-                    painter = painterResource(id = R.drawable.women1),
+                    painter = painterResource(id = imageRes1),
                     contentDescription = "woman1",
                     modifier = Modifier
                         .size(350.dp)
@@ -219,10 +243,11 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                         if (cancerType != null) {
                             CustomButton(
                                 text = "Next",
-                                route = Screens.BarriersToGettingScreened.route,
+                                route = "${Screens.Quiz.route}/WhereToGetScreened/BarriersToGettingScreened",
                                 navController = navController,
                                 fullSequence = fullSequence,
                                 cancerType = cancerType,
+                                enabled = true,
                                 modifier = Modifier
                                     .align(Alignment.BottomEnd)
                                     .padding(16.dp)

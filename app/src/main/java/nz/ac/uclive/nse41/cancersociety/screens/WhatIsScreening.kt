@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
-import nz.ac.uclive.nse41.cancersociety.screens.CustomButton
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
+import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
@@ -38,6 +39,19 @@ import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
 
 @Composable
 fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerType: String?) {
+    val context = LocalContext.current
+
+
+    var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            val timeSpent = System.currentTimeMillis() - startTime
+            Log.d("WhatIsScreening", "Time spent: $timeSpent ms")
+
+            saveLogToFile(context, "WhatIsScreening", timeSpent, cancerType.toString())
+        }
+    }
 
     CancerSocietyTheme(dynamicColor = false) {
         Surface(
@@ -52,9 +66,13 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
                 Log.d("Orientation", "The orientation is: " + orientation)
 
                 if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    AnimatedImageSlide(portrait = true)
+                    if (cancerType != null) {
+                        AnimatedImageSlide(portrait = true, cancerType = cancerType)
+                    }
                 } else {
-                    AnimatedImageSlide(portrait = false)
+                    if (cancerType != null) {
+                        AnimatedImageSlide(portrait = false, cancerType = cancerType)
+                    }
                 }
 
 
@@ -65,10 +83,11 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
                        if (cancerType != null) {
                            CustomButton(
                                text = "Next",
-                               route = Screens.Statistics.route, //need to pass the fullSeuqence here
+                               route = Screens.WhoCanGetScreened.route, //need to pass the fullSeuqence here //used to be statistics
                                navController = navController,
                                fullSequence = fullSequence,
                                cancerType = cancerType,
+                               enabled = true,
                                modifier = Modifier
                                    .align(Alignment.BottomEnd)
                                    .padding(16.dp)
@@ -139,7 +158,7 @@ fun ScreeningInfoColumn(
 
 
 @Composable
-fun AnimatedImageSlide(portrait: Boolean) {
+fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
 
     var startAnimation by remember { mutableStateOf(false) }
     var textToShow by remember { mutableStateOf(R.string.even_if_you_feel_well) }
@@ -207,8 +226,15 @@ fun AnimatedImageSlide(portrait: Boolean) {
                     .offset(x = offsetX, y = 0.dp)
             )*/
 
+            val imageRes1 = if (cancerType == "Bowel Cancer") {
+                R.drawable.men1
+            } else {
+                R.drawable.women1
+            }
+
             Image(
-                painter = painterResource(id = R.drawable.women1),
+                painter = painterResource(id = imageRes1
+                ),
                 contentDescription = "women1",
                 modifier = Modifier
                     .size(350.dp) //350
@@ -226,8 +252,14 @@ fun AnimatedImageSlide(portrait: Boolean) {
                 animationSpec = tween(durationMillis = 4000)
             )
 
+            val imageRes2 = if (cancerType == "Bowel Cancer") {
+                R.drawable.men2
+            } else {
+                R.drawable.women2
+            }
+
             Image(
-                painter = painterResource(id = R.drawable.women1),
+                painter = painterResource(id = imageRes2),
                 contentDescription = "women2",
                 modifier = Modifier
                     .size(350.dp) //350
@@ -238,7 +270,7 @@ fun AnimatedImageSlide(portrait: Boolean) {
 
 
             Image(
-                painter = painterResource(id = R.drawable.women1),
+                painter = painterResource(id = R.drawable.women3),
                 contentDescription = "women3",
                 modifier = Modifier
                     .size(350.dp) //350
@@ -324,7 +356,7 @@ fun AnimatedImageSlide(portrait: Boolean) {
 
 
             Image(
-                painter = painterResource(id = R.drawable.women1),
+                painter = painterResource(id = R.drawable.women2),
                 contentDescription = "women2",
                 modifier = Modifier
                     .size(300.dp) //350
@@ -333,7 +365,7 @@ fun AnimatedImageSlide(portrait: Boolean) {
 
 
             Image(
-                painter = painterResource(id = R.drawable.women1),
+                painter = painterResource(id = R.drawable.women3),
                 contentDescription = "women3",
                 modifier = Modifier
                     .size(300.dp) //350
@@ -345,8 +377,6 @@ fun AnimatedImageSlide(portrait: Boolean) {
 
 
 }
-
-
 
 
 

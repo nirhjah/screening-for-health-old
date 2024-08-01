@@ -1,5 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import CustomButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -76,6 +77,7 @@ fun StatisticsScreen(navController: NavController, fullSequence: Boolean, cancer
                                 navController = navController,
                                 fullSequence = fullSequence,
                                 cancerType = cancerType,
+                                enabled = true,
                                 modifier = Modifier
                                     .align(Alignment.BottomEnd)
                                     .padding(16.dp)

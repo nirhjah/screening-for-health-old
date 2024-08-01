@@ -1,5 +1,7 @@
 package nz.ac.uclive.nse41.cancersociety.navigation
 
+import BarriersToGettingScreenedScreen
+import MainMenuScreen
 import WhatIsScreening
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -7,14 +9,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import nz.ac.uclive.nse41.cancersociety.screens.MainMenuScreen
-import nz.ac.uclive.nse41.cancersociety.screens.BarriersToGettingScreenedScreen
 import nz.ac.uclive.nse41.cancersociety.screens.CancerHomepageScreen
 import nz.ac.uclive.nse41.cancersociety.screens.ScreeningSupportServicesScreen
 import nz.ac.uclive.nse41.cancersociety.screens.StatisticsScreen
-import nz.ac.uclive.nse41.cancersociety.screens.SymptomsScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhereToGetScreenedScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhoCanGetScreenedScreen
+import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizAnswerScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizCorrectAnswerScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizWrongAnswerScreen
@@ -88,19 +88,6 @@ fun NavGraph (navController: NavHostController) {
 
 
         composable(
-            route = "${Screens.Symptoms.route}/{fullSequence}/{cancerType}",
-            arguments = listOf(
-                navArgument("fullSequence") { type = NavType.BoolType },
-                navArgument("cancerType") { type = NavType.StringType },
-
-                )
-        ) { backStackEntry ->
-            val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
-            val cancerType = backStackEntry.arguments?.getString("cancerType")
-            SymptomsScreen(navController, fullSequence, cancerType)
-        }
-
-        composable(
             route = "${Screens.WhereToGetScreened.route}/{fullSequence}/{cancerType}",
             arguments = listOf(
                 navArgument("fullSequence") { type = NavType.BoolType },
@@ -145,50 +132,79 @@ fun NavGraph (navController: NavHostController) {
 
 
         composable(
-            route = "${Screens.Quiz.route}/{nextScreen}/{fullSequence}/{cancerType}",
+            route = "${Screens.Quiz.route}/{currentScreen}/{nextScreen}/{fullSequence}/{cancerType}",
             arguments = listOf(
+                navArgument("currentScreen") { type = NavType.StringType },
                 navArgument("nextScreen") { type = NavType.StringType },
                 navArgument("fullSequence") { type = NavType.BoolType },
                 navArgument("cancerType") { type = NavType.StringType },
                 )
         ) { backStackEntry ->
+            val currentScreen = backStackEntry.arguments?.getString("currentScreen")
             val nextScreen = backStackEntry.arguments?.getString("nextScreen")
             val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
             val cancerType = backStackEntry.arguments?.getString("cancerType")
 
-            QuizScreen(navController, nextScreen, fullSequence, cancerType)
+            QuizScreen(navController, currentScreen, nextScreen, fullSequence, cancerType)
         }
 
-
         composable(
-            route = "${Screens.QuizCorrectAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}",
+            route = "${Screens.QuizAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}/{quizCorrect}",
             arguments = listOf(
                 navArgument("nextScreen") { type = NavType.StringType },
                 navArgument("fullSequence") { type = NavType.BoolType },
                 navArgument("cancerType") { type = NavType.StringType },
+                navArgument("quizResponse") { type = NavType.StringType },
+                navArgument("quizCorrect") { type = NavType.BoolType }
             )
         ) { backStackEntry ->
             val nextScreen = backStackEntry.arguments?.getString("nextScreen")
             val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
             val cancerType = backStackEntry.arguments?.getString("cancerType")
+            val quizResponse = backStackEntry.arguments?.getString("quizResponse")
+            val quizCorrect = backStackEntry.arguments?.getBoolean("quizCorrect") ?: false
 
-            QuizCorrectAnswerScreen(navController, nextScreen, fullSequence, cancerType)
+            QuizAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse, quizCorrect)
         }
 
 
         composable(
-            route = "${Screens.QuizWrongAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}",
+            route = "${Screens.QuizCorrectAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}",
             arguments = listOf(
                 navArgument("nextScreen") { type = NavType.StringType },
                 navArgument("fullSequence") { type = NavType.BoolType },
                 navArgument("cancerType") { type = NavType.StringType },
-            )
+                navArgument("quizResponse") { type = NavType.StringType },
+
+                )
         ) { backStackEntry ->
             val nextScreen = backStackEntry.arguments?.getString("nextScreen")
             val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
             val cancerType = backStackEntry.arguments?.getString("cancerType")
+            val quizResponse = backStackEntry.arguments?.getString("quizResponse")
 
-            QuizWrongAnswerScreen(navController, nextScreen, fullSequence, cancerType)
+
+            QuizCorrectAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse)
+        }
+
+
+        composable(
+            route = "${Screens.QuizWrongAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}",
+            arguments = listOf(
+                navArgument("nextScreen") { type = NavType.StringType },
+                navArgument("fullSequence") { type = NavType.BoolType },
+                navArgument("cancerType") { type = NavType.StringType },
+                navArgument("quizResponse") { type = NavType.StringType },
+
+                )
+        ) { backStackEntry ->
+            val nextScreen = backStackEntry.arguments?.getString("nextScreen")
+            val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
+            val cancerType = backStackEntry.arguments?.getString("cancerType")
+            val quizResponse = backStackEntry.arguments?.getString("quizResponse")
+
+
+            QuizWrongAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse)
         }
 
 

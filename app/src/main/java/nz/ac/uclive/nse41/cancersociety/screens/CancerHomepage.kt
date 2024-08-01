@@ -1,7 +1,10 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -13,6 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -66,12 +74,24 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
     }
 
 
+    var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            val timeSpent = System.currentTimeMillis() - startTime
+            Log.d("CancerHomepage", "Time spent: $timeSpent ms")
+
+            saveLogToFile(context, "CancerHomepage", timeSpent, cancerType.toString())
+        }
+    }
+
 
     CancerSocietyTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
+
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.TopCenter
@@ -80,19 +100,80 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                     modifier = Modifier.fillMaxSize()
                 ) {
 
-
-
-                    Text(
-                        text = cancerType,
-                        fontSize = fontSize,
-                        fontWeight = FontWeight.Bold,
+                    Box(
                         modifier = Modifier
-                            .padding(start = start, top = 32.dp) //66, 32
+                            .size(48.dp)
+                            .background(Orange, shape = MaterialTheme.shapes.small)
+                    ) {
+                        IconButton(
+                            onClick = { navController.navigate(Screens.MainMenu.route) }) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Back",
+                                tint = Color.Black
+                            )
+                        }
+                    }
+
+
+                    Row(
+                        modifier = Modifier
+                            .padding(start = start, top = 0.dp) // Adjust padding as needed
                             .align(Alignment.Start)
-                            .semantics { testTag = "cancerHomepageTitle" } ,
-                        textAlign = TextAlign.Left,
-                        color = Color.Black
-                    )
+                            .semantics { testTag = "cancerHomepageTitle" }
+                    ) {
+                        Text(
+                            text = cancerType,
+                            fontSize = fontSize,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Left,
+                            color = Color.Black,
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically) // Center text vertically in the row
+                        )
+
+
+                        // Image of women1
+                        Image(
+                            painter = painterResource(id = R.drawable.women1),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(168.dp)
+                                .align(Alignment.CenterVertically)
+                        )
+
+
+                        val imageRes2 = if (cancerType == "Bowel Cancer") {
+                            R.drawable.men2
+                        } else {
+                            R.drawable.women2
+                        }
+
+
+                        // Image of women2
+                        Image(
+                            painter = painterResource(id = imageRes2),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(168.dp)
+                                .align(Alignment.CenterVertically)
+                        )
+
+
+                        val imageRes3 = if (cancerType == "Bowel Cancer") {
+                            R.drawable.men3
+                        } else {
+                            R.drawable.women3
+                        }
+
+                        Image(
+                            painter = painterResource(id = imageRes3),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(168.dp)
+                                .align(Alignment.CenterVertically)
+                        )
+                    }
 
                     Spacer(modifier = Modifier.weight(1f))
 
@@ -218,10 +299,19 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        .clickable {
+                                        /*.clickable {
                                             Log.d("MyActivity", cancerType + "stats")
 
                                             navController.navigate("${Screens.Statistics.route}/$fullSequence/$cancerType")
+                                        }*/
+                                        .clickable {
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    "Statistics page coming soon",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                .show()
                                         }
 
                                 ) {
@@ -411,29 +501,57 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
 
                             Spacer(modifier = Modifier.height(20.dp))
 
-                            Text(
-                                text = "Useful links",
-                                fontSize = 26.sp,
-                                modifier = Modifier.padding(26.dp),
-                                textAlign = TextAlign.Left,
-                                color = Color.Black
-                            )
 
-                            Text(
-                                text = "Useful links",
-                                fontSize = 26.sp,
-                                modifier = Modifier.padding(26.dp),
-                                textAlign = TextAlign.Left,
-                                color = Color.Black
-                            )
+                            val link2 = when (cancerType) {
+                                "Bowel Cancer" -> "https://bowelcancernz.org.nz/about-bowel-cancer/what-is-bowel-cancer/symptoms-statistics/"
+                                "Breast Cancer" -> "https://www.breastcancerfoundation.org.nz/breast-awareness/mammograms"
+                                else -> "https://www.tewhatuora.govt.nz/health-services-and-programmes/ncsp-hpv-screening/"
+                            }
 
-                            Text(
-                                text = "Useful links",
-                                fontSize = 26.sp,
-                                modifier = Modifier.padding(26.dp),
-                                textAlign = TextAlign.Left,
-                                color = Color.Black
-                            )
+                            val text2 = when (cancerType) {
+                                "Bowel Cancer" -> "Bowel Cancer NZ"
+                                "Breast Cancer" -> "Breast Cancer Foundation"
+                                else -> "Te Whatu Ora"
+                            }
+
+
+                            Button(
+                                onClick = {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
+                                    context.startActivity(intent)
+                                },
+                                modifier = Modifier.align(Alignment.CenterHorizontally),
+                                colors = ButtonDefaults.buttonColors(containerColor = Orange, contentColor = Color.Black),
+
+                                ) {
+                                Text(text2)
+                            }
+
+                            val link3 = when (cancerType) {
+                                "Bowel Cancer" -> "https://www.cancer.org.nz/cancer/types-of-cancer/bowel-cancer/"
+                                "Breast Cancer" -> "https://www.cancer.org.nz/cancer/types-of-cancer/breast-cancer/"
+                                else -> "https://www.cancer.org.nz/cancer/types-of-cancer/cervical-cancer/"
+                            }
+
+                            val text3 = when (cancerType) {
+                                "Bowel Cancer" -> "Cancer Society"
+                                "Breast Cancer" -> "Cancer Society"
+                                else -> "Cancer Society"
+                            }
+
+
+                            Button(
+                                onClick = {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link3))
+                                    context.startActivity(intent)
+                                },
+                                modifier = Modifier.align(Alignment.CenterHorizontally),
+                                colors = ButtonDefaults.buttonColors(containerColor = Orange, contentColor = Color.Black),
+
+                                ) {
+                                Text(text3)
+                            }
+
 
 
                         }

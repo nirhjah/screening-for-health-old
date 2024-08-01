@@ -1,5 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens.quizscreens
 
+import CustomButton
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,14 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import nz.ac.uclive.nse41.cancersociety.screens.CustomButton
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
-fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, fullSequence: Boolean, cancerType: String?) {
+fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, fullSequence: Boolean, cancerType: String?, quizResponse: String?) {
 
     CancerSocietyTheme(dynamicColor = false) {
         // A surface container using the 'background' color from the theme
@@ -46,6 +47,12 @@ fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, f
                 fontWeight = FontWeight.Bold
             )
 
+                    Text(
+                        text = quizResponse.toString(),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+
             val nextScreenRoute = screenRoutesMap[nextScreen] ?: Screens.MainMenu.route
 
             Box(modifier = Modifier.fillMaxSize()) {
@@ -56,6 +63,7 @@ fun QuizCorrectAnswerScreen(navController: NavController, nextScreen: String?, f
                         navController = navController,
                         fullSequence = true,
                         cancerType = cancerType, //TODO CHANGE THIS
+                        enabled = true,
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
                             .padding(16.dp)
