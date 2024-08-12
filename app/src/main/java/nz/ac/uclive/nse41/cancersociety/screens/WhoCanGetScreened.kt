@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
@@ -158,17 +159,28 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                 if (fullSequence) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (cancerType != null) {
-                            CustomButton(
-                                text = "Next",
-                                route = "${Screens.Quiz.route}/WhoCanGetScreened/WhereToGetScreened",
-                                navController = navController,
-                                fullSequence = fullSequence,
-                                cancerType = cancerType,
-                                enabled = true,
+                            Row(
                                 modifier = Modifier
-                                    .align(Alignment.BottomEnd)
+                                    .fillMaxWidth()
                                     .padding(16.dp)
-                            )
+                                    .align(Alignment.BottomCenter),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+
+                                CustomProgressBar(currentScreenIndex = 1)
+
+                                CustomButton(
+                                    text = "Next",
+                                    route = "${Screens.Quiz.route}/WhoCanGetScreened/WhereToGetScreened",
+                                    navController = navController,
+                                    fullSequence = fullSequence,
+                                    cancerType = cancerType,
+                                    enabled = true,
+                                    modifier = Modifier
+                                        .align(Alignment.CenterVertically)
+                                )
+                            }
                         }
                     }
                 } else {

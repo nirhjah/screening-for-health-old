@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
@@ -81,17 +82,29 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
                if (fullSequence) {
                    Box(modifier = Modifier.fillMaxSize()) {
                        if (cancerType != null) {
-                           CustomButton(
-                               text = "Next",
-                               route = Screens.WhoCanGetScreened.route, //need to pass the fullSeuqence here //used to be statistics
-                               navController = navController,
-                               fullSequence = fullSequence,
-                               cancerType = cancerType,
-                               enabled = true,
+                           Row(
                                modifier = Modifier
-                                   .align(Alignment.BottomEnd)
+                                   .fillMaxWidth()
                                    .padding(16.dp)
-                           )
+                                   .align(Alignment.BottomCenter),
+                               verticalAlignment = Alignment.CenterVertically,
+                               horizontalArrangement = Arrangement.SpaceBetween
+                           ) {
+                               // Place progress bar on the left
+                               CustomProgressBar(currentScreenIndex = 0)
+
+                               // Place "Next" button on the right
+                               CustomButton(
+                                   text = "Next",
+                                   route = Screens.WhoCanGetScreened.route,
+                                   navController = navController,
+                                   fullSequence = fullSequence,
+                                   cancerType = cancerType,
+                                   enabled = true,
+                                   modifier = Modifier
+                                       .align(Alignment.CenterVertically)
+                               )
+                           }
                        }
                    }
                } else {
@@ -114,6 +127,7 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
 
 
             }
+
         }
     }
 }

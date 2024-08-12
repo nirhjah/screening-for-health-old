@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
@@ -105,6 +106,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
+                CustomProgressBar(currentScreenIndex = 2)
 
                 Column(
                     modifier = Modifier

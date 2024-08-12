@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
@@ -79,6 +80,7 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
+                CustomProgressBar(currentScreenIndex = 4)
 
                 Column(
                     modifier = Modifier
