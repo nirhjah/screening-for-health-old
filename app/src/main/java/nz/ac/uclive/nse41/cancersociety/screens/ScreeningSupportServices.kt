@@ -155,7 +155,7 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                                             .align(Alignment.BottomEnd)
                                             .padding(16.dp)
                                     ) {
-                                        Text("Home", fontSize = 40.sp, color = Color.Black)
+                                        Text("Finish", fontSize = 40.sp, color = Color.Black)
                                     }
                                 }
                             }

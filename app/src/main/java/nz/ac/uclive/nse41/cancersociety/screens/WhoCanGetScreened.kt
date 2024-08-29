@@ -5,12 +5,17 @@ import android.content.Context
 import android.os.Environment
 import android.util.Log
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -36,6 +41,7 @@ import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
+import nz.ac.uclive.nse41.cancersociety.utilities.Subsection
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 import java.io.File
@@ -86,33 +92,11 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                         fontWeight = FontWeight.Bold
                     )
 
-
-                    val images = if (cancerType == "Bowel Cancer") {
-                        listOf(
-                            R.drawable.men1,
-                            R.drawable.women2,
-                            R.drawable.men3
-                        )
-                    } else {
-                        listOf(
-                            R.drawable.women1,
-                            R.drawable.women2,
-                            R.drawable.women3
-                        )
+                    if (whoCanGetScreenedSubSection != null) {
+                        PagerStepThree(cancerType = cancerType.toString(), whoCanGetScreenedSubSection = whoCanGetScreenedSubSection)
                     }
 
 
-
-                    LazyRow(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        whoCanGetScreenedSubSection?.info?.let { infoList ->
-                            itemsIndexed(infoList) { index, info ->
-                                EligibilityItem(imageRes = images.getOrNull(index) ?: R.drawable.women1, text = info)
-                            }
-                        }
-                    }
                 }
 
 
@@ -246,5 +230,106 @@ fun saveLogToFile(context: Context, screenName: String, timeSpent: Long, cancerT
         Log.d("saveLogToFile", "File path: ${file.absolutePath}")
     } else {
         Log.e("saveLogToFile", "External storage is not writable")
+    }
+}
+
+
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val pageCount = 3
+        val pagerState = rememberPagerState(
+            pageCount = { pageCount },
+        )
+        val indicatorScrollState = rememberLazyListState()
+
+        LaunchedEffect(key1 = pagerState.currentPage) {
+            val currentPage = pagerState.currentPage
+            val size = indicatorScrollState.layoutInfo.visibleItemsInfo.size
+            val lastVisibleIndex =
+                indicatorScrollState.layoutInfo.visibleItemsInfo.last().index
+            val firstVisibleItemIndex = indicatorScrollState.firstVisibleItemIndex
+
+            if (currentPage > lastVisibleIndex - 1) {
+                indicatorScrollState.animateScrollToItem(currentPage - size + 2)
+            } else if (currentPage <= firstVisibleItemIndex + 1) {
+                indicatorScrollState.animateScrollToItem(kotlin.math.max(currentPage - 1, 0))
+            }
+        }
+
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+        ) { pageIndex ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Page $pageIndex")
+
+                val images = if (cancerType == "Bowel Cancer") {
+                    listOf(
+                        R.drawable.men1,
+                        R.drawable.women2,
+                        R.drawable.men3
+                    )
+                } else {
+                    listOf(
+                        R.drawable.women1,
+                        R.drawable.women2,
+                        R.drawable.women3
+                    )
+                }
+
+                // Display each EligibilityItem manually
+                val info = whoCanGetScreenedSubSection.info.getOrNull(pageIndex)
+                val imageRes = images.getOrNull(pageIndex) ?: R.drawable.women1
+
+                if (info != null) {
+                    EligibilityItem(imageRes = imageRes, text = info)
+                }
+            }
+        }
+
+        LazyRow(
+            state = indicatorScrollState,
+            modifier = Modifier
+                .height(50.dp)
+                .width(((6 + 16) * 2 + 3 * (10 + 16)).dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            repeat(pageCount) { iteration ->
+                val color = if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+                item(key = "item$iteration") {
+                    val currentPage = pagerState.currentPage
+                    val firstVisibleIndex by remember { derivedStateOf { indicatorScrollState.firstVisibleItemIndex } }
+                    val lastVisibleIndex = indicatorScrollState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+                    val size by animateDpAsState(
+                        targetValue = if (iteration == currentPage) {
+                            10.dp
+                        } else if (iteration in firstVisibleIndex + 1..lastVisibleIndex - 1) {
+                            10.dp
+                        } else {
+                            6.dp
+                        }
+                    )
+                    Box(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .background(color, CircleShape)
+                            .size(size)
+                    )
+                }
+            }
+        }
     }
 }
