@@ -1,5 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import BackButton
 import CustomButton
 import android.content.Context
 import android.os.Environment
@@ -35,6 +36,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
@@ -78,7 +80,12 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-
+                if (fullSequence) {
+                    CustomProgressBar(
+                        currentScreenIndex = 1,
+                        modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f)  // Centers the progress bar inside the Box
+                    )
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -120,27 +127,17 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                     }
                 }
 
+
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterEnd) // Align to the bottom-end
                         .padding(16.dp), // Add padding to move it slightly to the right
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Shaking Arrow",
-                        modifier = Modifier
-                            .graphicsLayer(
-                                translationX = offsetX.value, // Apply animation to X-axis
-                                scaleX = -1f
-                            )
-                            .size(50.dp), // Adjust size if necessary
-                        tint = Color.Black // Adjust color if necessary
-                    )
+                    Text("Swipe!")
                 }
 
 
-                if (fullSequence) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (cancerType != null) {
                             Row(
@@ -151,8 +148,6 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-
-                                CustomProgressBar(currentScreenIndex = 1)
 
                                 CustomButton(
                                     text = "Next",
@@ -167,22 +162,8 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                             }
                         }
                     }
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .background(Orange, shape = MaterialTheme.shapes.small)
-                            .align(Alignment.BottomStart)
-                    ) {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.Black
-                            )
-                        }
-                    }
-                }
+                    BackButton(navController)
+
             }
         }
     }

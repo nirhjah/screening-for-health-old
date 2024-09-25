@@ -35,18 +35,6 @@
       ],
       "correctAnswer": "2 years",
       "response": "You can get your free mammogram every 2 years. Did you know you can still get screened even if you feel well?"
-    },
-    {
-      "subsection": "BarriersToGettingScreened",
-      "question": "Have you faced any of these barriers before?",
-      "answers": [
-        "Access",
-        "Trust",
-        "Mindset",
-        "All of the above"
-      ],
-      "correctAnswer": "All of the above",
-      "response": "There are many support services in place to help you through the process, continue to find out more!"
     }
   ],
   "Cervical Cancer": [
@@ -72,19 +60,7 @@
         "All of the above"
       ],
       "correctAnswer": "All of the above",
-      "response": "Did you know you can still get screened even if you feel healthy?"
-    },
-    {
-      "subsection": "BarriersToGettingScreened",
-      "question": "Have you faced any of these barriers before?",
-      "answers": [
-        "Access",
-        "Trust",
-        "Mindset",
-        "All of the above"
-      ],
-      "correctAnswer": "All of the above",
-      "response": "There are many support services in place to help you through the process, continue to find out more!"
+      "response": "All of those groups can get a test done! Did you know you can still get screened even if you feel healthy?"
     }
   ],
   "Bowel Cancer": [
@@ -122,19 +98,7 @@
         "5 years"
       ],
       "correctAnswer": "2 years",
-      "response": "Screening regularly is important as it can look out for very early signs of cancer!"
-    },
-    {
-      "subsection": "BarriersToGettingScreened",
-      "question": "Have you faced any of these barriers before?",
-      "answers": [
-        "Access",
-        "Trust",
-        "Mindset",
-        "All of the above"
-      ],
-      "correctAnswer": "All of the above",
-      "response": "There are many support services in place to help you through the process, continue to find out more!"
+      "response": "You will receive your kit every 2 years! Screening regularly is important as it can look out for very early signs of cancer!"
     }
   ]
 }

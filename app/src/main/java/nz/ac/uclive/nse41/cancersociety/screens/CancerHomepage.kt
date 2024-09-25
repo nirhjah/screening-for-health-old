@@ -1,5 +1,7 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import BackButton
+import HomepageBackButton
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -100,25 +102,14 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                     modifier = Modifier.fillMaxSize()
                 ) {
 
-                    Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .background(Orange, shape = MaterialTheme.shapes.small)
-                    ) {
-                        IconButton(
-                            onClick = { navController.navigate(Screens.MainMenu.route) }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.Black
-                            )
-                        }
-                    }
+
+                        HomepageBackButton(navController)
+
 
 
                     Row(
                         modifier = Modifier
-                            .padding(start = start, top = 0.dp) // Adjust padding as needed
+                            .padding(start = start, top = 0.dp)
                             .align(Alignment.Start)
                             .semantics { testTag = "cancerHomepageTitle" }
                     ) {
@@ -129,7 +120,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             textAlign = TextAlign.Left,
                             color = Color.Black,
                             modifier = Modifier
-                                .align(Alignment.CenterVertically) // Center text vertically in the row
+                                .align(Alignment.CenterVertically)
                         )
 
 
@@ -195,8 +186,8 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             modifier = Modifier.fillMaxWidth().padding(top = topPadding)
 
                         ) {
-
-                            ElevatedCard(
+                        //todo add big quiz
+                           /* ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
                                     containerColor = Orange,
@@ -233,7 +224,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         textAlign = TextAlign.Center,
                                     )
                                 }
-                            }
+                            }*/
 
 
 
@@ -295,7 +286,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                 }
 
                                 Card(
-                                    colors = CardDefaults.cardColors(containerColor = Orange,
+                                    colors = CardDefaults.cardColors(containerColor = Bluey,
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
@@ -378,7 +369,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                 }
 
                                 Card(
-                                    colors = CardDefaults.cardColors(containerColor = Orange,
+                                    colors = CardDefaults.cardColors(containerColor = Bluey,
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
@@ -521,7 +512,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                     context.startActivity(intent)
                                 },
                                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                                colors = ButtonDefaults.buttonColors(containerColor = Orange, contentColor = Color.Black),
+                                colors = ButtonDefaults.buttonColors(containerColor = Bluey, contentColor = Color.Black),
 
                                 ) {
                                 Text(text2)
@@ -546,7 +537,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                     context.startActivity(intent)
                                 },
                                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                                colors = ButtonDefaults.buttonColors(containerColor = Orange, contentColor = Color.Black),
+                                colors = ButtonDefaults.buttonColors(containerColor = Bluey, contentColor = Color.Black),
 
                                 ) {
                                 Text(text3)
@@ -568,7 +559,7 @@ fun getCancerTypeColor(cancerType: String): Color {
     return when (cancerType) {
         "Breast Cancer" -> Pink
         "Bowel Cancer" -> Green
-        "Cervical Cancer" -> Bluey
-        else -> Orange // if for some reason doesn't exist
+        "Cervical Cancer" -> Orange
+        else -> Bluey // if for some reason doesn't exist
     }
 }
