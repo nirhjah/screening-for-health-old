@@ -34,7 +34,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
@@ -75,6 +77,13 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
+                if (fullSequence) {
+                    if (fullSequence) {
+                        CustomProgressBar(
+                            currentScreenIndex = 3,
+                            modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f)  // Centers the progress bar inside the Box
+                        )
+                    }                }
 
                 Column(
                     modifier = Modifier
@@ -165,12 +174,11 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
                     }
                 }
 
-                if (fullSequence) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (cancerType != null) {
                             CustomButton(
                                 text = "Next",
-                                route = "${Screens.Quiz.route}/BarriersToGettingScreened/ScreeningSupportServices",
+                                route = Screens.ScreeningSupportServices.route,
                                 navController = navController,
                                 fullSequence = fullSequence,
                                 cancerType = cancerType,
@@ -181,22 +189,8 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
                             )
                         }
                     }
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .background(Orange, shape = MaterialTheme.shapes.small)
-                            .align(Alignment.BottomStart)
-                    ) {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.Black
-                            )
-                        }
-                    }
-                }
+                    BackButton(navController)
+
 
                 // Dialogs
                 if (showAccessDialog.value) {

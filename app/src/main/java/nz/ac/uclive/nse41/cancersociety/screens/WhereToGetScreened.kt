@@ -1,5 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
+import BackButton
 import CustomButton
 import android.content.Intent
 import android.net.Uri
@@ -10,10 +11,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,9 +23,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -50,10 +57,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
+import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
@@ -74,6 +84,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
     val offsetX = remember { Animatable(initialOffsetX.value) }
     var showCard by remember { mutableStateOf(false) }
 
+    val showOrderTestKitModal = remember { mutableStateOf(false) }
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
@@ -88,12 +99,11 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
 
 
     LaunchedEffect(Unit) {
-        delay(500)
+        delay(100)
         offsetX.animateTo(
             targetValue = targetOffsetX.value,
             animationSpec = tween(durationMillis = 3000)
         )
-        delay(500)
         isVisible = true
         showCard = true
     }
@@ -105,6 +115,11 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
+                if (fullSequence) {
+                    CustomProgressBar(
+                        currentScreenIndex = 2,
+                        modifier = Modifier.align(Alignment.TopCenter).zIndex(1f)  // Centers the progress bar inside the Box
+                    )                             }
 
                 Column(
                     modifier = Modifier
@@ -152,6 +167,39 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                 }
 
 
+                if (cancerType == "Bowel Cancer") {
+                    Image(
+                        painter = painterResource(id = R.drawable.mailbox),
+                        contentDescription = "mailbox",
+                        modifier = Modifier
+                            .size(180.dp)
+                            .align(Alignment.Center)
+                            .offset(x = (-450).dp, y = 160.dp)
+                            .clickable {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(4)))
+                                context.startActivity(intent)
+                            }
+                    )
+                }
+
+
+                if (cancerType == "Cervical Cancer") {
+                    Image(
+                        painter = painterResource(id = R.drawable.doctor),
+                        contentDescription = "doctor",
+                        modifier = Modifier
+                            .size(470.dp)
+                            .align(Alignment.Center)
+                            .offset(x = (-450).dp, y = 170.dp)
+                            .clickable {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(1)))
+                                context.startActivity(intent)
+                            }
+                    )
+                }
+
+
+
                 Image(
                     painter = painterResource(id = imageRes1),
                     contentDescription = "woman1",
@@ -161,6 +209,8 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                 )
 
                 if (cancerType == "Bowel Cancer") {
+
+
                     Image(
                         painter = painterResource(id = R.drawable.house),
                         contentDescription = "house",
@@ -183,9 +233,9 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                 AnimatedVisibility(
                     visible = isVisible,
                     enter = fadeIn() + slideInHorizontally(
-                        animationSpec = tween(durationMillis = 3000),
+                        animationSpec = tween(durationMillis = 2000),
                         initialOffsetX = { 700 }
-                        ),
+                    ),
 
                     modifier = Modifier.offset(900.dp, 260.dp)
 
@@ -196,7 +246,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                             .padding(start = 6.dp)
 
 
-/*
+                            /*
                             .offset(x = responsiveHospitalImage() + 516.dp, y = 260.dp)
 */
                             .size(300.dp, 300.dp),
@@ -223,24 +273,171 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                             Button(
                                 onClick = {
 
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(1)))
-                                    context.startActivity(intent)
+
+                                    if (cancerType == "Bowel Cancer") {
+                                        showOrderTestKitModal.value = true
+
+
+                                    } else {
+                                        val intent = Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse(whereToGetScreenedSubSection?.info?.get(1))
+                                        )
+                                        context.startActivity(intent)
+                                    }
+
 
                                 },
                                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                                colors = ButtonDefaults.buttonColors(containerColor = Orange, contentColor = Black),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Bluey,
+                                    contentColor = Black
+                                ),
 
-                            ) {
-                                Text("Click to find your closest clinic!")
+                                ) {
+                                if (cancerType == "Bowel Cancer") {
+                                    Text("Click to order a test kit!")
+
+                                } else {
+                                    Text("Click to find your closest clinic!")
+                                }
                             }
                         }
                     }
 
                 }
 
-                if (fullSequence) {
+
+                //bowel cancer only
+                if (cancerType == "Bowel Cancer") {
+
+
+                AnimatedVisibility(
+                    visible = isVisible,
+                    enter = fadeIn() + slideInHorizontally(
+                        animationSpec = tween(durationMillis = 2500),
+                        initialOffsetX = { 0 }
+                    ),
+
+                    modifier = Modifier.offset(105.dp, 250.dp)
+
+                ) {
+                    Card(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(start = 6.dp)
+                            .size(150.dp, 150.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        ),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "Tap the mailbox to find out how to do the test!",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
+                }
+
+
+            }
+
+
+                if (cancerType == "Cervical Cancer") {
+
+
+                    AnimatedVisibility(
+                        visible = isVisible,
+                        enter = fadeIn() + slideInHorizontally(
+                            animationSpec = tween(durationMillis = 2500),
+                            initialOffsetX = { 0 }
+                        ),
+
+                        modifier = Modifier.offset(105.dp, 250.dp)
+
+                    ) {
+                        Card(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(start = 6.dp)
+                                .size(210.dp, 105.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surface,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            ),
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "Tap the doctor to find out how to do a self-test!",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                    }
+
+
+                }
+
+
+                if (showOrderTestKitModal.value) {
+                    val infoList = whereToGetScreenedSubSection?.info
+                    val bulletPoints = infoList?.drop(1)?.dropLast(1) ?: listOf()
+
+                    AlertDialog(
+                        onDismissRequest = { showOrderTestKitModal.value = false },
+                        title = { Text("Order a test kit through...") },
+                        text = {
+                            Column {
+                                bulletPoints.forEachIndexed { index, bulletPoint ->
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(
+                                            imageVector = when (index) {
+                                                0 -> Icons.Default.Phone
+                                                1 -> Icons.Default.Email
+                                                2 -> Icons.Default.Person
+                                                else -> Icons.Default.ArrowBack
+                                            },
+                                            contentDescription = null,
+                                            modifier = Modifier.size(30.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(bulletPoint)
+                                    }
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                }
+                            }
+                        },
+                        confirmButton = {
+                            Button(onClick = { showOrderTestKitModal.value = false }) {
+                                Text("Close")
+                            }
+                        }
+                    )
+
+                }
+
                     Box(modifier = Modifier.fillMaxSize()) {
-                        if (cancerType != null) {
+                        if (fullSequence) {
+
+                            if (cancerType != null) {
                             CustomButton(
                                 text = "Next",
                                 route = "${Screens.Quiz.route}/WhereToGetScreened/BarriersToGettingScreened",
@@ -252,24 +449,10 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                                     .align(Alignment.BottomEnd)
                                     .padding(16.dp)
                             )
-                        }
+                        } }
                     }
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .background(Orange, shape = MaterialTheme.shapes.small)
-                            .align(Alignment.BottomStart)
-                    ) {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.Black
-                            )
-                        }
-                    }
-                }
+                    BackButton(navController)
+
             }
         }
     }

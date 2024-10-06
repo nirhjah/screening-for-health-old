@@ -62,3 +62,19 @@ fun getQuizQuestionForCancerTypeAndSubsection(context: Context, fileName: String
     return questions[Random.nextInt(questions.size)]
 }
 
+fun getQuizQuestionsForCancerType(context: Context, fileName: String, cancerType: String): List<QuizQuestion>? {
+    val inputStream = context.assets.open(fileName)
+    val reader = InputStreamReader(inputStream)
+    val gson = Gson()
+
+    val quizType = object : TypeToken<Map<String, List<QuizQuestion>>>() {}.type
+    val quizData: Map<String, List<QuizQuestion>> = gson.fromJson(reader, quizType)
+
+    val questions = quizData[cancerType]
+
+    if (questions.isNullOrEmpty()) {
+        return null
+    }
+
+    return questions
+}

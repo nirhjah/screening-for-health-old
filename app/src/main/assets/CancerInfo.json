@@ -9,11 +9,11 @@
         },
         {
           "subsection": "Who can get screened",
-          "info": ["You can get your free test from when you are 25...", "...up until you are 69!", "And you can still get screened even if you feel healthy!"]
+          "info": ["You can get your free test from when you are 45...", "...up until you are 69!", "And you can still get screened even if you feel healthy!"]
         },
         {
           "subsection": "Where to get screened",
-          "info": ["Screening mammograms can be done at BreastScreen clinics across the country, with mobile units coming through smaller towns throughout the year!", "https://www.timetoscreen.nz/breast-screening/having-a-mammogram/find-clinic/"]
+          "info": ["Screening mammograms can be done at BreastScreen clinics across the country, with mobile units coming through smaller towns throughout the year!", "https://info.health.nz/keeping-healthy/cancer-screening/breast-screening/breast-screening-clinic-locations"]
         },
         {
           "subsection": "Barriers to getting screened",
@@ -34,11 +34,11 @@
         },
         {
           "subsection": "Who can get screened",
-          "info": ["You can get your free test from when you are 25...", "...up until you are 75!", "And you can still get screened even if you feel healthy!"]
+          "info": ["You can get your free test from when you are 60...", "...up until you are 74!", "And you can still get screened even if you feel healthy!"]
         },
         {
           "subsection": "Where to get screened",
-          "info": ["You will receive your FREE bowel screening test kit every 2 years in the mail. The test is quick, easy, clean and can be done at home! \nIf you are aged between 60-74 years and have not received a test kit, "]
+          "info": ["You will receive your FREE bowel screening test kit every 2 years in the mail. The test is quick, easy, clean and can be done at home! \nIf you are aged between 60-74 years and have not received a test kit,", "Phone 0800 924 432", "Email info@bowelscreening.health.nz", "Or speak to your GP", "https://info.health.nz/keeping-healthy/cancer-screening/bowel-screening/doing-the-test"]
         },
         {
           "subsection": "Barriers to getting screened",
@@ -63,7 +63,7 @@
         },
         {
           "subsection": "Where to get screened",
-          "info": ["You can visit your usual doctor or nurse at GP clinic, or a Māori, Pacific or women’s community health center!", "https://www.healthpoint.co.nz/search?__csrf=zavNKCsTRmwHXW21&q=cervical+screening"]
+          "info": ["You can visit your usual doctor or nurse at GP clinic, or a Māori, Pacific or women’s community health center, and you can even request to do a self-test!", "https://info.health.nz/keeping-healthy/cancer-screening/cervical-screening/where-to-go-for-cervical-screening", "https://info.health.nz/keeping-healthy/cancer-screening/cervical-screening/doing-a-vaginal-swab-self-test"]
         },
         {
           "subsection": "Barriers to getting screened",

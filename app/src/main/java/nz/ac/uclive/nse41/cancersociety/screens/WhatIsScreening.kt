@@ -8,6 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
@@ -60,7 +63,11 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
             contentColor = Color(red = 0, green = 0, blue = 0)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-
+                if (fullSequence) {
+                    CustomProgressBar(
+                        currentScreenIndex = 0,
+                        modifier = Modifier.align(Alignment.BottomCenter) // Centers the progress bar inside the Box
+                    )                }
                 val configuration = LocalConfiguration.current
                 val orientation = configuration.orientation
                 Log.d("Orientation", "The orientation is: " + orientation)
@@ -78,42 +85,40 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
 
 
 
-               if (fullSequence) {
                    Box(modifier = Modifier.fillMaxSize()) {
-                       if (cancerType != null) {
-                           CustomButton(
-                               text = "Next",
-                               route = Screens.WhoCanGetScreened.route, //need to pass the fullSeuqence here //used to be statistics
-                               navController = navController,
-                               fullSequence = fullSequence,
-                               cancerType = cancerType,
-                               enabled = true,
+                       if (fullSequence) {
+
+                           if (cancerType != null) {
+                           Row(
                                modifier = Modifier
-                                   .align(Alignment.BottomEnd)
+                                   .fillMaxWidth()
                                    .padding(16.dp)
-                           )
-                       }
+                                   .align(Alignment.BottomCenter),
+                               verticalAlignment = Alignment.CenterVertically,
+                               horizontalArrangement = Arrangement.SpaceBetween
+                           ) {
+
+
+                               CustomButton(
+                                   text = "Next",
+                                   route = Screens.WhoCanGetScreened.route,
+                                   navController = navController,
+                                   fullSequence = fullSequence,
+                                   cancerType = cancerType,
+                                   enabled = true,
+                                   modifier = Modifier
+                                       .align(Alignment.CenterVertically)
+                               )
+                           }
+                       } }
                    }
-               } else {
-                   Box(
-                       modifier = Modifier
-                           .size(48.dp)
-                           .background(Orange, shape = MaterialTheme.shapes.small)
-                           .align(Alignment.BottomStart)
-                   ) {
-                       IconButton(
-                           onClick = { navController.popBackStack() }) {
-                           Icon(
-                               imageVector = Icons.Filled.ArrowBack,
-                               contentDescription = "Back",
-                               tint = Color.Black
-                           )
-                       }
-                   }
-               }
+
+                   BackButton(navController)
+
 
 
             }
+
         }
     }
 }
@@ -124,7 +129,8 @@ fun ScreeningInfoColumn(
     fontSize: TextUnit,
     hospitalSize: Dp,
     alpha: Float,
-    textToShow: Int
+    textToShow: String,
+    cancerType: String
 ) {
     Column(
         modifier = Modifier
@@ -139,14 +145,28 @@ fun ScreeningInfoColumn(
             fontWeight = FontWeight.Bold
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.hospital),
-            contentDescription = "hospital",
-            modifier = Modifier.size(hospitalSize) //350
-        )
+
+
+        if (cancerType == "Bowel Cancer") {
+            Image(
+                painter = painterResource(id = R.drawable.house),
+                contentDescription = "house",
+                modifier = Modifier.size(hospitalSize) //350
+            )
+        } else {
+            Image(
+                painter = painterResource(id = R.drawable.hospital),
+                contentDescription = "hospital",
+                modifier = Modifier.size(hospitalSize) //350
+            )
+        }
+
+
+
+
 
         Text(
-            text = stringResource(textToShow),
+            text = textToShow,
             fontSize = 30.sp,
             modifier = Modifier.graphicsLayer(alpha = alpha),
             fontWeight = FontWeight.Bold
@@ -161,7 +181,7 @@ fun ScreeningInfoColumn(
 fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
 
     var startAnimation by remember { mutableStateOf(false) }
-    var textToShow by remember { mutableStateOf(R.string.even_if_you_feel_well) }
+    var textToShow by remember { mutableStateOf("Even if you feel well, you can get screened for $cancerType") }
     var textAlpha by remember { mutableStateOf(1f) }
 
     val alpha by animateFloatAsState(
@@ -191,7 +211,7 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
             delay(3000)
             textAlpha = 0f
             delay(1400)
-            textToShow = R.string.screening_will_help
+            textToShow = "Screening early will help determine if you need further testing"
             textAlpha = 1f
             delay(1300)
             women2Offset += 300.dp //200
@@ -209,7 +229,8 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
                 fontSize = responsiveFontSize(),
                 hospitalSize = responsiveHospitalImage(),
                 alpha = alpha,
-                textToShow = textToShow
+                textToShow = textToShow,
+                cancerType = cancerType
 
             )
 
@@ -304,7 +325,7 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
             delay(3000)
             textAlpha = 0f
             delay(1200)
-            textToShow = R.string.screening_will_help
+            textToShow = "Screening early will help determine if you need further testing"
             textAlpha = 1f
 
             delay(1300)
@@ -323,7 +344,8 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
                 fontSize = responsiveFontSize(),
                 hospitalSize = responsiveHospitalImage(),
                 alpha = alpha,
-                textToShow = textToShow
+                textToShow = textToShow,
+                cancerType = cancerType
             )
 
             Image(
