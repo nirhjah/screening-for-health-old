@@ -121,7 +121,6 @@ fun MainMenuScreen(navController: NavController) {
 
                 }
 
-                // Image of women2 on the right
                 Image(
                     painter = painterResource(id = R.drawable.men2),
                     contentDescription = "Women2",
@@ -182,26 +181,6 @@ fun NavButton(
     }
 
 }
-
-/*@Composable
-fun NavButton(
-    text: String,
-    cancerType: String,
-    navController: NavController,
-    colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Orange),
-    modifier: Modifier = Modifier
-        .height(120.dp) //150.dp
-        .width(400.dp)
-) {
-    Button(
-        onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
-        colors = colors,
-        modifier = modifier.semantics { testTag = "text1" }
-    ) {
-        Text(text, fontSize = 40.sp, color = Color.Black)
-    }
-}*/
-
 
 @Composable
 fun BackButton(navController: NavController) {

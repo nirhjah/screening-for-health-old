@@ -128,18 +128,20 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                 }
 
 
-                Box(
+           /*     Box(
                     modifier = Modifier
                         .align(Alignment.CenterEnd) // Align to the bottom-end
                         .padding(16.dp), // Add padding to move it slightly to the right
                     contentAlignment = Alignment.Center
                 ) {
                     Text("Swipe!")
-                }
+                }*/
 
 
                     Box(modifier = Modifier.fillMaxSize()) {
-                        if (cancerType != null) {
+                        if (fullSequence) {
+
+                            if (cancerType != null) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -160,7 +162,7 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                                         .align(Alignment.CenterVertically)
                                 )
                             }
-                        }
+                        }}
                     }
                     BackButton(navController)
 
@@ -223,6 +225,8 @@ fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) 
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+
         val pageCount = 3
         val pagerState = rememberPagerState(
             pageCount = { pageCount },
@@ -243,18 +247,18 @@ fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) 
             }
         }
 
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
         ) { pageIndex ->
+
             Box(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Page $pageIndex")
 
                 val images = if (cancerType == "Bowel Cancer") {
                     listOf(
@@ -268,6 +272,17 @@ fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) 
                         R.drawable.women2,
                         R.drawable.women3
                     )
+                }
+
+                if (pageIndex != pagerState.pageCount - 1) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        Text(text = "Swipe!", fontSize = 25.sp)
+                    }
                 }
 
                 // Display each EligibilityItem manually

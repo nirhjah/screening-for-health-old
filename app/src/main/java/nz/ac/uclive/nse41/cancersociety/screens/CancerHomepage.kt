@@ -187,7 +187,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
 
                         ) {
                         //todo add big quiz
-                           /* ElevatedCard(
+                            ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
                                     containerColor = Orange,
@@ -224,7 +224,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         textAlign = TextAlign.Center,
                                     )
                                 }
-                            }*/
+                            }
 
 
 

@@ -176,11 +176,28 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                             .align(Alignment.Center)
                             .offset(x = (-450).dp, y = 160.dp)
                             .clickable {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://info.health.nz/keeping-healthy/cancer-screening/bowel-screening/doing-the-test"))
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(4)))
                                 context.startActivity(intent)
                             }
                     )
                 }
+
+
+                if (cancerType == "Cervical Cancer") {
+                    Image(
+                        painter = painterResource(id = R.drawable.doctor),
+                        contentDescription = "doctor",
+                        modifier = Modifier
+                            .size(470.dp)
+                            .align(Alignment.Center)
+                            .offset(x = (-450).dp, y = 170.dp)
+                            .clickable {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(1)))
+                                context.startActivity(intent)
+                            }
+                    )
+                }
+
 
 
                 Image(
@@ -335,9 +352,54 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
 
             }
 
+
+                if (cancerType == "Cervical Cancer") {
+
+
+                    AnimatedVisibility(
+                        visible = isVisible,
+                        enter = fadeIn() + slideInHorizontally(
+                            animationSpec = tween(durationMillis = 2500),
+                            initialOffsetX = { 0 }
+                        ),
+
+                        modifier = Modifier.offset(105.dp, 250.dp)
+
+                    ) {
+                        Card(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(start = 6.dp)
+                                .size(210.dp, 105.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surface,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            ),
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "Tap the doctor to find out how to do a self-test!",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                    }
+
+
+                }
+
+
                 if (showOrderTestKitModal.value) {
                     val infoList = whereToGetScreenedSubSection?.info
-                    val bulletPoints = infoList?.drop(1) ?: listOf()
+                    val bulletPoints = infoList?.drop(1)?.dropLast(1) ?: listOf()
 
                     AlertDialog(
                         onDismissRequest = { showOrderTestKitModal.value = false },
@@ -373,7 +435,9 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                 }
 
                     Box(modifier = Modifier.fillMaxSize()) {
-                        if (cancerType != null) {
+                        if (fullSequence) {
+
+                            if (cancerType != null) {
                             CustomButton(
                                 text = "Next",
                                 route = "${Screens.Quiz.route}/WhereToGetScreened/BarriersToGettingScreened",
@@ -385,7 +449,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                                     .align(Alignment.BottomEnd)
                                     .padding(16.dp)
                             )
-                        }
+                        } }
                     }
                     BackButton(navController)
 

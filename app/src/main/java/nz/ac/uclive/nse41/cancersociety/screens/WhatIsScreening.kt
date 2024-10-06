@@ -86,7 +86,9 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
 
 
                    Box(modifier = Modifier.fillMaxSize()) {
-                       if (cancerType != null) {
+                       if (fullSequence) {
+
+                           if (cancerType != null) {
                            Row(
                                modifier = Modifier
                                    .fillMaxWidth()
@@ -108,7 +110,7 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
                                        .align(Alignment.CenterVertically)
                                )
                            }
-                       }
+                       } }
                    }
 
                    BackButton(navController)
