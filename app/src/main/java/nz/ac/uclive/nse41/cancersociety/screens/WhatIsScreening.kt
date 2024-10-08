@@ -44,6 +44,7 @@ import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
 fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     val context = LocalContext.current
 
+    var isButtonEnabled by remember { mutableStateOf(false) }
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
@@ -74,11 +75,11 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
 
                 if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                     if (cancerType != null) {
-                        AnimatedImageSlide(portrait = true, cancerType = cancerType)
+                        AnimatedImageSlide(portrait = true, cancerType = cancerType, onAnimationEnd = { isButtonEnabled = true })
                     }
                 } else {
                     if (cancerType != null) {
-                        AnimatedImageSlide(portrait = false, cancerType = cancerType)
+                        AnimatedImageSlide(portrait = false, cancerType = cancerType, onAnimationEnd = { isButtonEnabled = true })
                     }
                 }
 
@@ -89,28 +90,26 @@ fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerT
                        if (fullSequence) {
 
                            if (cancerType != null) {
-                           Row(
-                               modifier = Modifier
-                                   .fillMaxWidth()
-                                   .padding(16.dp)
-                                   .align(Alignment.BottomCenter),
-                               verticalAlignment = Alignment.CenterVertically,
-                               horizontalArrangement = Arrangement.SpaceBetween
-                           ) {
-
-
-                               CustomButton(
-                                   text = "Next",
-                                   route = Screens.WhoCanGetScreened.route,
-                                   navController = navController,
-                                   fullSequence = fullSequence,
-                                   cancerType = cancerType,
-                                   enabled = true,
+                               Row(
                                    modifier = Modifier
-                                       .align(Alignment.CenterVertically)
-                               )
-                           }
-                       } }
+                                       .fillMaxWidth()
+                                       .padding(16.dp)
+                                       .align(Alignment.BottomCenter),
+                                   verticalAlignment = Alignment.CenterVertically,
+                                   horizontalArrangement = Arrangement.End
+                               ) {
+                                   CustomButton(
+                                       text = "Next",
+                                       route = Screens.WhoCanGetScreened.route,
+                                       navController = navController,
+                                       fullSequence = fullSequence,
+                                       cancerType = cancerType,
+                                       enabled = isButtonEnabled,
+                                       modifier = Modifier.align(Alignment.CenterVertically)
+                                   )
+                               }
+
+                           } }
                    }
 
                    BackButton(navController)
@@ -178,7 +177,7 @@ fun ScreeningInfoColumn(
 
 
 @Composable
-fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
+fun AnimatedImageSlide(portrait: Boolean, cancerType: String, onAnimationEnd: () -> Unit) {
 
     var startAnimation by remember { mutableStateOf(false) }
     var textToShow by remember { mutableStateOf("Even if you feel well, you can get screened for $cancerType") }
@@ -191,7 +190,6 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
 
     if (!portrait) {
         Log.d("portrait or not:", portrait.toString() + " should NOT be ")
-
 
         var women2Offset by remember { mutableStateOf(110.dp) }
         var women3Offset by remember { mutableStateOf(220.dp) }
@@ -218,6 +216,8 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String) {
             women3Offset += 300.dp //200
             delay(2400)
             women1Offset += 295.dp
+            onAnimationEnd()
+
         }
 
         Box(

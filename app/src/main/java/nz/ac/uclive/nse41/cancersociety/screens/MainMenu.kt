@@ -250,6 +250,7 @@ fun QuizCheckButton(
     fullSequence: Boolean,
     cancerType: String,
     quizResponse: String,
+    quizSubsection: String,
     enabled: Boolean,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Bluey),
     modifier: Modifier = Modifier
@@ -262,7 +263,7 @@ fun QuizCheckButton(
     Button(
         onClick = {
             if (enabled) {
-                Log.d("CustomButton", "Navigating to $route/$fullSequence/$cancerType/$quizResponse")
+                Log.d("CustomButton", "Navigating to $route/$fullSequence/$cancerType/$quizResponse/$quizSubsection")
                 navController.navigate(route)
             }
         },

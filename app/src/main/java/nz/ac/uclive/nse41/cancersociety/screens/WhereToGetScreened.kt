@@ -65,7 +65,6 @@ import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
@@ -73,6 +72,7 @@ import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
 @Composable
 fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     var isVisible by remember { mutableStateOf(false) }
+    var isButtonEnabled by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     val cancerInfo = getCancerInfoFromJson(context, "CancerInfo.json")
@@ -106,6 +106,9 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
         )
         isVisible = true
         showCard = true
+        delay(500)
+
+        isButtonEnabled = true
     }
 
     CancerSocietyTheme(dynamicColor = false) {
@@ -444,7 +447,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                                 navController = navController,
                                 fullSequence = fullSequence,
                                 cancerType = cancerType,
-                                enabled = true,
+                                enabled = isButtonEnabled,
                                 modifier = Modifier
                                     .align(Alignment.BottomEnd)
                                     .padding(16.dp)

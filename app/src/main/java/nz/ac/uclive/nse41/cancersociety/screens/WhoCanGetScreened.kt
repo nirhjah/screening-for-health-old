@@ -148,7 +148,8 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                                     .padding(16.dp)
                                     .align(Alignment.BottomCenter),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.End
+
                             ) {
 
                                 CustomButton(

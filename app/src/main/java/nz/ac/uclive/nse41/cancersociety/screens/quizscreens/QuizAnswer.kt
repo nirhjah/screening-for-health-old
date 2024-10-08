@@ -1,5 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens.quizscreens
 
+import BackButton
 import CustomButton
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,7 +36,9 @@ import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
+import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
+import nz.ac.uclive.nse41.cancersociety.utilities.Subsection
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
@@ -43,9 +48,9 @@ fun QuizAnswerScreen(
     fullSequence: Boolean,
     cancerType: String?,
     quizResponse: String?,
-    quizCorrect: Boolean
+    quizCorrect: Boolean,
+    quizSubsection: String
 ) {
-
 
     val context = LocalContext.current
 
@@ -126,17 +131,35 @@ fun QuizAnswerScreen(
 
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (cancerType != null) {
-                            CustomButton(
-                                text = "Next",
-                                route = nextScreenRoute,
-                                navController = navController,
-                                fullSequence = fullSequence,
-                                cancerType = cancerType,
-                                enabled = true,
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .padding(16.dp)
-                            )
+
+                            if (quizSubsection == "ScreeningSupportServices") {
+                                Button(
+                                    onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
+                                    colors = ButtonDefaults.buttonColors(containerColor = Bluey),
+                                    modifier = Modifier
+                                        .align(Alignment.BottomEnd)
+                                        .padding(16.dp)
+                                ) {
+                                    Text("Finish", fontSize = 40.sp, color = Color.Black)
+                                }
+                            } else {
+                                CustomButton(
+                                    text = "Next",
+                                    route = nextScreenRoute,
+                                    navController = navController,
+                                    fullSequence = fullSequence,
+                                    cancerType = cancerType,
+                                    enabled = true,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomEnd)
+                                        .padding(16.dp)
+                                )
+                            }
+
+
+
+                            BackButton(navController)
+
                         }
                     }
                 }

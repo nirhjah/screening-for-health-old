@@ -190,7 +190,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
-                                    containerColor = Orange,
+                                    containerColor = Bluey,
                                     contentColor = Color.Black
                                 ),
                                 modifier = Modifier

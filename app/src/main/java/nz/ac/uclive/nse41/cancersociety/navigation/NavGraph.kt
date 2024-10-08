@@ -149,22 +149,26 @@ fun NavGraph (navController: NavHostController) {
         }
 
         composable(
-            route = "${Screens.QuizAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}/{quizCorrect}",
+            route = "${Screens.QuizAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}/{quizCorrect}/{quizSubsection}",
             arguments = listOf(
                 navArgument("nextScreen") { type = NavType.StringType },
                 navArgument("fullSequence") { type = NavType.BoolType },
                 navArgument("cancerType") { type = NavType.StringType },
                 navArgument("quizResponse") { type = NavType.StringType },
-                navArgument("quizCorrect") { type = NavType.BoolType }
-            )
+                navArgument("quizCorrect") { type = NavType.BoolType },
+                navArgument("quizSubsection") { type = NavType.StringType },
+                )
         ) { backStackEntry ->
             val nextScreen = backStackEntry.arguments?.getString("nextScreen")
             val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
             val cancerType = backStackEntry.arguments?.getString("cancerType")
             val quizResponse = backStackEntry.arguments?.getString("quizResponse")
             val quizCorrect = backStackEntry.arguments?.getBoolean("quizCorrect") ?: false
+            val quizSubsection = backStackEntry.arguments?.getString("quizSubsection")
 
-            QuizAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse, quizCorrect)
+            if (quizSubsection != null) {
+                QuizAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse, quizCorrect, quizSubsection)
+            }
         }
 
 

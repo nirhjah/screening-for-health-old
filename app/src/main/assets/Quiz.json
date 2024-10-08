@@ -13,16 +13,16 @@
       "response": "Those aged 45-69 can get a free mammogram! Did you know you can still get screened even if you feel well?"
     },
     {
-      "subsection": "WhereToGetScreened",
-      "question": "Where can you find a BreastScreen clinic?",
+      "subsection": "WhoCanGetScreened",
+      "question": "At what age can wahine start getting a free mammogram in NZ?",
       "answers": [
-        "In big cities only",
-        "South Island only",
-        "North Island only",
-        "All across the country"
+        "30 years old",
+        "45 years old",
+        "50 years old",
+        "69 years old"
       ],
-      "correctAnswer": "All across the country",
-      "response": "With BreastScreen clinics all across the country, including several mobile clinics throughout the year, there's sure to be one near you!"
+      "correctAnswer": "45 years old",
+      "response": "They can start getting a free mammogram from 45! Did you know you can still get screened even if you feel well?"
     },
     {
       "subsection": "WhoCanGetScreened",
@@ -35,6 +35,42 @@
       ],
       "correctAnswer": "2 years",
       "response": "You can get your free mammogram every 2 years. Did you know you can still get screened even if you feel well?"
+    },
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "Where can you find a BreastScreen clinic?",
+      "answers": [
+        "In big cities only",
+        "South Island only",
+        "North Island only",
+        "All across the country"
+      ],
+      "correctAnswer": "All across the country",
+      "response": "With BreastScreen clinics all across the country, including several mobile clinics throughout the year, there's sure to be one near you!"
+    },
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "Where can you get a mammogram in New Zealand?",
+      "answers": [
+        "At any hospital",
+        "BreastScreen clinics and mobile units",
+        "At a pharmacy",
+        "At a community health center"
+      ],
+      "correctAnswer": "BreastScreen clinics and mobile units",
+      "response": "Mammograms are available at BreastScreen clinics, and mobile units travel around different regions!"
+    },
+    {
+      "subsection": "ScreeningSupportServices",
+      "question": "Which group receives extra support for breast cancer screening?",
+      "answers": [
+        "All wahine over 60",
+        "Māori or Pacific women aged 45-69",
+        "All wahine aged 70 and above",
+        "Wahine living in big cities"
+      ],
+      "correctAnswer": "Māori or Pacific women aged 45-69",
+      "response": "Extra support is provided to Māori and Pacific women aged 45-69! Support also available to those aged 45-69 who've never been screened."
     }
   ],
   "Cervical Cancer": [
@@ -45,10 +81,22 @@
         "Your usual doctor/nurse at a GP clinic",
         "Māori, Pacific or women’s community health centres",
         "At home",
-        "Usual doctor/nurse or Māori/Pacific/women's community health centre"
+        "All of the above"
       ],
-      "correctAnswer": "Usual doctor/nurse or Māori/Pacific/women's community health centre",
-      "response": "You can get screened at your usual doctor or nurse or Māori, Pacific, or women's community health centre!"
+      "correctAnswer": "All of the above",
+      "response": "You can get screened at your usual doctor or nurse or Māori, Pacific, women's community health centre, or even do a self-test!"
+    },
+    {
+      "subsection": "WhereToGetScreened",
+      "question": "What option is available for cervical screening if you prefer privacy?",
+      "answers": [
+        "You can only get screened at a clinic",
+        "You can do a self-test",
+        "You must go to a hospital",
+        "You need a referral from a specialist"
+      ],
+      "correctAnswer": "You can do a self-test",
+      "response": "You can even request to do a self-test for cervical screening, allowing for greater privacy and convenience!"
     },
     {
       "subsection": "WhoCanGetScreened",
@@ -61,6 +109,30 @@
       ],
       "correctAnswer": "All of the above",
       "response": "All of those groups can get a test done! Did you know you can still get screened even if you feel healthy?"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "At what age can wahine start getting a free cervical screening test in New Zealand?",
+      "answers": [
+        "20 years old",
+        "25 years old",
+        "30 years old",
+        "35 years old"
+      ],
+      "correctAnswer": "25 years old",
+      "response": "Wahine in New Zealand can start getting free cervical screening tests at age 25! Did you know you can still get screened even if you feel healthy?"
+    },
+    {
+      "subsection": "ScreeningSupportServices",
+      "question": "Which group receives extra support for cervical cancer screening?",
+      "answers": [
+        "All wahine over 30",
+        "Only those with symptoms",
+        "Māori or Pacific wahine aged 25-69",
+        "People under 50"
+      ],
+      "correctAnswer": "Māori or Pacific wahine aged 25-69",
+      "response": "Extra support is available for Māori and Pacific wahine aged 25-69 to encourage cervical screening!"
     }
   ],
   "Bowel Cancer": [
@@ -77,16 +149,16 @@
       "response": "You can do the bowel screening test at the comfort of your own home, and it is easy to do!"
     },
     {
-      "subsection": "WhoCanGetScreened",
-      "question": "Who can get a free bowel screening test kit?",
+      "subsection": "WhereToGetScreened",
+      "question": "How will you receive your bowel screening test kit?",
       "answers": [
-        "Anyone aged 60-74",
-        "Men aged 60-74",
-        "Anyone aged over 74",
-        "Women aged 60-74"
+        "Pick it up at a pharmacy",
+        "Delivered to your home by mail",
+        "Collect it from a hospital",
+        "Get it at a health clinic"
       ],
-      "correctAnswer": "Anyone aged 60-74",
-      "response": "Anyone aged 60-74 can get a free test kit. Did you know you can still get screened even if you feel well?"
+      "correctAnswer": "Delivered to your home by mail",
+      "response": "Your bowel screening test kit will be mailed to your home every 2 years if you are aged 60-74. Call 0800 924 432 if you haven't received yours!"
     },
     {
       "subsection": "WhereToGetScreened",
@@ -99,6 +171,54 @@
       ],
       "correctAnswer": "2 years",
       "response": "You will receive your kit every 2 years! Screening regularly is important as it can look out for very early signs of cancer!"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "Who can get a free bowel screening test kit?",
+      "answers": [
+        "Anyone aged 60-74",
+        "Men aged 60-74",
+        "Anyone aged over 74",
+        "Women aged 60-74"
+      ],
+      "correctAnswer": "Anyone aged 60-74",
+      "response": "Anyone aged 60-74 can get a free test kit. Did you know you can still get screened even if you feel well?"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "At what age will you start getting a free test kit?",
+      "answers": [
+        "50 years old",
+        "60 years old",
+        "65 years old",
+        "70 years old"
+      ],
+      "correctAnswer": "60 years old",
+      "response": "You will start getting your free test kit sent to you from when you are 60! Call 0800 924 432 if you haven't received yours!"
+    },
+    {
+      "subsection": "WhoCanGetScreened",
+      "question": "Until what age can you receive free bowel screening?",
+      "answers": [
+        "65 years old",
+        "69 years old",
+        "74 years old",
+        "75 years old"
+      ],
+      "correctAnswer": "74 years old",
+      "response": "You can receive free bowel screening up until you are 74! Screening is important even if you feel healthy"
+    },
+    {
+      "subsection": "ScreeningSupportServices",
+      "question": "Which group receives extra support for bowel cancer screening?",
+      "answers": [
+        "People aged over 60",
+        "Māori and Pacific people who have not completed a test",
+        "All people who live in rural areas",
+        "People under 50"
+      ],
+      "correctAnswer": "Māori and Pacific people who have not completed a test",
+      "response": "Māori and Pacific people who have not completed a test can receive extra support through the screening stages!"
     }
   ]
 }

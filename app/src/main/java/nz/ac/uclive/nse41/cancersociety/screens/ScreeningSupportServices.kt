@@ -1,6 +1,7 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
 import BackButton
+import CustomButton
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -191,16 +192,50 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                     }
                 }
 
-                // Finish button at the bottom right
-                Button(
-                    onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Bluey),
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(16.dp)
-                ) {
-                    Text("Finish", fontSize = 40.sp, color = Color.Black)
+
+
+                if (fullSequence) {
+
+                    if (cancerType != null) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .align(Alignment.BottomCenter),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.End
+
+                        ) {
+
+                            CustomButton(
+                                text = "Next",
+                                route = "${Screens.Quiz.route}/ScreeningSupportServices/WhereToGetScreened",
+                                navController = navController,
+                                fullSequence = fullSequence,
+                                cancerType = cancerType,
+                                enabled = true,
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                            )
+                        }
+                    }} else {
+                        //not full
+                    Button(
+                        onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
+                        colors = ButtonDefaults.buttonColors(containerColor = Bluey),
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(16.dp)
+                    ) {
+                        Text("Finish", fontSize = 40.sp, color = Color.Black)
+                    }
                 }
+
+
+
+
+
+
             }
         }
     }

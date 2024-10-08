@@ -119,12 +119,10 @@ fun QuizScreen(
 
                         var quizCorrect: Boolean? = null
 
-                        if (quizQuestion.subsection == "BarriersToGettingScreened") {
-                            quizCorrect = true
-                        } else {
-                            quizCorrect = selectedAnswer.value == quizQuestion.correctAnswer
-                        }
-                        val route = "${Screens.QuizAnswer.route}/$nextScreen/$fullSequence/$cancerType/${quizQuestion.response}/$quizCorrect"
+
+                        quizCorrect = selectedAnswer.value == quizQuestion.correctAnswer
+
+                        val route = "${Screens.QuizAnswer.route}/$nextScreen/$fullSequence/$cancerType/${quizQuestion.response}/$quizCorrect/${quizQuestion.subsection}"
 
                         QuizCheckButton(
                             text = "Check",
@@ -133,6 +131,7 @@ fun QuizScreen(
                             fullSequence = true,
                             cancerType = cancerType,
                             quizResponse = quizQuestion.response,
+                            quizSubsection = quizQuestion.subsection,
                             enabled = selectedAnswer.value != null,
                             modifier = Modifier.fillMaxWidth()
                         )
