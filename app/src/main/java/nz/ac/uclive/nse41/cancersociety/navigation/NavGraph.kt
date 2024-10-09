@@ -9,6 +9,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import nz.ac.uclive.nse41.cancersociety.screens.CancerHomepageScreen
 import nz.ac.uclive.nse41.cancersociety.screens.FinalScreen
 import nz.ac.uclive.nse41.cancersociety.screens.ScreeningSupportServicesScreen
@@ -16,9 +18,11 @@ import nz.ac.uclive.nse41.cancersociety.screens.StatisticsScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhereToGetScreenedScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhoCanGetScreenedScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizAnswerScreen
-import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizCorrectAnswerScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizScreen
-import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizWrongAnswerScreen
+import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.testyourknowledge.FinalScoreScreen
+import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.testyourknowledge.QuizAnswerTYKScreen
+import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.testyourknowledge.QuizTYKScreen
+import nz.ac.uclive.nse41.cancersociety.utilities.QuizQuestion
 
 /**
  * Navigation component of the application, which handles navigation between screens and what information to pass between screens
@@ -185,48 +189,49 @@ fun NavGraph (navController: NavHostController) {
         }
 
 
-        composable(
-            route = "${Screens.QuizCorrectAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}",
-            arguments = listOf(
-                navArgument("nextScreen") { type = NavType.StringType },
-                navArgument("fullSequence") { type = NavType.BoolType },
-                navArgument("cancerType") { type = NavType.StringType },
-                navArgument("quizResponse") { type = NavType.StringType },
-
-                )
-        ) { backStackEntry ->
-            val nextScreen = backStackEntry.arguments?.getString("nextScreen")
-            val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
-            val cancerType = backStackEntry.arguments?.getString("cancerType")
-            val quizResponse = backStackEntry.arguments?.getString("quizResponse")
-
-
-            QuizCorrectAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse)
-        }
-
+        //Test your knowledge quiz screens
 
         composable(
-            route = "${Screens.QuizWrongAnswer.route}/{nextScreen}/{fullSequence}/{cancerType}/{quizResponse}",
+            route = Screens.QuizTYK.route + "/{questions}/{currentQuestionIndex}/{currentScore}",
             arguments = listOf(
-                navArgument("nextScreen") { type = NavType.StringType },
-                navArgument("fullSequence") { type = NavType.BoolType },
-                navArgument("cancerType") { type = NavType.StringType },
-                navArgument("quizResponse") { type = NavType.StringType },
-
-                )
+                navArgument("questions") { type = NavType.StringType },
+                navArgument("currentQuestionIndex") { type = NavType.IntType },
+                navArgument("currentScore") { type = NavType.IntType }
+            )
         ) { backStackEntry ->
-            val nextScreen = backStackEntry.arguments?.getString("nextScreen")
-            val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
-            val cancerType = backStackEntry.arguments?.getString("cancerType")
-            val quizResponse = backStackEntry.arguments?.getString("quizResponse")
+            val questionsJson = backStackEntry.arguments?.getString("questions") ?: ""
+            val questions: List<QuizQuestion> = Gson().fromJson(questionsJson, object : TypeToken<List<QuizQuestion>>() {}.type)
+            val currentQuestionIndex = backStackEntry.arguments?.getInt("currentQuestionIndex") ?: 0
+            val currentScore = backStackEntry.arguments?.getInt("currentScore") ?: 0
 
-
-            QuizWrongAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse)
+            QuizTYKScreen(navController, questions, currentQuestionIndex, currentScore)
         }
 
+        composable(
+            route = Screens.QuizAnswerTYK.route + "/{currentQuestionIndex}/{quizCorrect}/{questions}/{currentScore}",
+            arguments = listOf(
+                navArgument("currentQuestionIndex") { type = NavType.IntType },
+                navArgument("quizCorrect") { type = NavType.BoolType },
+                navArgument("questions") { type = NavType.StringType },
+                navArgument("currentScore") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val currentQuestionIndex = backStackEntry.arguments?.getInt("currentQuestionIndex") ?: 0
+            val quizCorrect = backStackEntry.arguments?.getBoolean("quizCorrect") ?: false
+            val questionsJson = backStackEntry.arguments?.getString("questions") ?: ""
+            val questions: List<QuizQuestion> = Gson().fromJson(questionsJson, object : TypeToken<List<QuizQuestion>>() {}.type)
+            val currentScore = backStackEntry.arguments?.getInt("currentScore") ?: 0
 
+            QuizAnswerTYKScreen(navController, currentQuestionIndex, quizCorrect, questions, currentScore)
+        }
 
-
+        composable(
+            route = Screens.FinalScoreScreen.route + "/{currentScore}",
+            arguments = listOf(navArgument("currentScore") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val finalScore = backStackEntry.arguments?.getInt("currentScore") ?: 0
+            FinalScoreScreen(navController, finalScore)
+        }
 
     }
 }

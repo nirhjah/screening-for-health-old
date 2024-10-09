@@ -62,6 +62,7 @@ fun getQuizQuestionForCancerTypeAndSubsection(context: Context, fileName: String
     return questions[Random.nextInt(questions.size)]
 }
 
+/*
 fun getQuizQuestionsForCancerType(context: Context, fileName: String, cancerType: String): List<QuizQuestion>? {
     val inputStream = context.assets.open(fileName)
     val reader = InputStreamReader(inputStream)
@@ -77,4 +78,22 @@ fun getQuizQuestionsForCancerType(context: Context, fileName: String, cancerType
     }
 
     return questions
+}
+*/
+
+
+fun getQuizQuestionsForCancerType(context: Context, fileName: String, cancerType: String, numberOfQuestions: Int = 5): List<QuizQuestion>? {
+    val inputStream = context.assets.open(fileName)
+    val reader = InputStreamReader(inputStream)
+    val gson = Gson()
+
+    // Define the type for deserialization
+    val quizType = object : TypeToken<Map<String, List<QuizQuestion>>>() {}.type
+    val quizData: Map<String, List<QuizQuestion>> = gson.fromJson(reader, quizType)
+
+    // Get questions for the specified cancer type
+    val questions = quizData[cancerType] ?: return null
+
+    // Shuffle and take the requested number of questions (up to the available size)
+    return questions.shuffled().take(numberOfQuestions)
 }

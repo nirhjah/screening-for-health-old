@@ -17,10 +17,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import nz.ac.uclive.nse41.cancersociety.R
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -29,7 +25,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,7 +37,6 @@ import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.Subsection
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
@@ -127,15 +121,6 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                     }
                 }
 
-
-           /*     Box(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd) // Align to the bottom-end
-                        .padding(16.dp), // Add padding to move it slightly to the right
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Swipe!")
-                }*/
 
 
                     Box(modifier = Modifier.fillMaxSize()) {

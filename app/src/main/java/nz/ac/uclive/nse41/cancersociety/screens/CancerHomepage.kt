@@ -1,6 +1,5 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
-import BackButton
 import HomepageBackButton
 import android.content.Intent
 import android.net.Uri
@@ -14,8 +13,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -36,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.gson.Gson
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
@@ -43,6 +41,7 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Green
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Pink
+import nz.ac.uclive.nse41.cancersociety.utilities.getQuizQuestionsForCancerType
 
 @Composable
 fun CancerHomepageScreen(navController: NavController, cancerType: String) {
@@ -124,7 +123,6 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                         )
 
 
-                        // Image of women1
                         Image(
                             painter = painterResource(id = R.drawable.women1),
                             contentDescription = null,
@@ -141,7 +139,6 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                         }
 
 
-                        // Image of women2
                         Image(
                             painter = painterResource(id = imageRes2),
                             contentDescription = null,
@@ -186,7 +183,6 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             modifier = Modifier.fillMaxWidth().padding(top = topPadding)
 
                         ) {
-                        //todo add big quiz
                             ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
@@ -196,14 +192,9 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                 modifier = Modifier
                                     .size(width = 680.dp, height = 80.dp)
                                     .clickable {
-                                        //TODO go to quiz
-                                        Toast
-                                            .makeText(
-                                                context,
-                                                "Quiz feature coming soon",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                            .show()
+                                        val randomQuestions = getQuizQuestionsForCancerType(context, "Quiz.json", cancerType)
+                                        val questionsJson = Gson().toJson(randomQuestions)
+                                        navController.navigate("quizTYK/$questionsJson/0/0")
                                     }
                             ) {
 
@@ -290,11 +281,6 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)
-                                        /*.clickable {
-                                            Log.d("MyActivity", cancerType + "stats")
-
-                                            navController.navigate("${Screens.Statistics.route}/$fullSequence/$cancerType")
-                                        }*/
                                         .clickable {
                                             Toast
                                                 .makeText(

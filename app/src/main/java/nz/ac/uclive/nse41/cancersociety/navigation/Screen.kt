@@ -22,5 +22,12 @@ sealed class Screens(val route: String, @StringRes val resourceId: Int) {
     object QuizWrongAnswer : Screens("quiz_wrong_answer", R.string.quiz_wrong_answer)
     object QuizAnswer : Screens("quiz_answer", R.string.quiz_answer)
 
+    object QuizTYK : Screens("quizTYK", R.string.quiz)
+    object QuizAnswerTYK : Screens("quiz_answer_tyk", R.string.quiz_answer)
+
+    object FinalScoreScreen : Screens("final_score_screen", R.string.final_score_screen)
+
+
+
 
 }

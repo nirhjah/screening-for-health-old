@@ -1,6 +1,5 @@
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -11,12 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -41,17 +36,11 @@ import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
-import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
 @Composable
 fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     val context = LocalContext.current
-    val cancerInfo = getCancerInfoFromJson(context, "CancerInfo.json")
-    val selectedCancer = cancerInfo?.cancers?.find { it.cancer == cancerType }
-
-    // State variables for dialog visibility
     val showAccessDialog = remember { mutableStateOf(false) }
     val showTrustDialog = remember { mutableStateOf(false) }
     val showMindsetDialog = remember { mutableStateOf(false) }
@@ -70,7 +59,6 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
 
 
     CancerSocietyTheme(dynamicColor = false) {
-        // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
@@ -81,7 +69,7 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
                     if (fullSequence) {
                         CustomProgressBar(
                             currentScreenIndex = 3,
-                            modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f)  // Centers the progress bar inside the Box
+                            modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f)
                         )
                     }                }
 
@@ -192,7 +180,6 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
                     BackButton(navController)
 
 
-                // Dialogs
                 if (showAccessDialog.value) {
                     AlertDialog(
                         onDismissRequest = { showAccessDialog.value = false },

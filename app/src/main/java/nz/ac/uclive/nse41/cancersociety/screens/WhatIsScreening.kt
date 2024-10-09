@@ -4,14 +4,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,7 +16,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -239,14 +231,6 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String, onAnimationEnd: ()
                 animationSpec = tween(durationMillis = 4000)
             )
 
-          /*  Image(
-                painter = painterResource(id = R.drawable.women1),
-                contentDescription = "women1",
-                modifier = Modifier
-                    .size(350.dp) //350
-                    .offset(x = offsetX, y = 0.dp)
-            )*/
-
             val imageRes1 = if (cancerType == "Bowel Cancer") {
                 R.drawable.men1
             } else {
@@ -286,8 +270,6 @@ fun AnimatedImageSlide(portrait: Boolean, cancerType: String, onAnimationEnd: ()
                     .size(350.dp) //350
                     .offset(x = offsetX + women2OffsetAnimated)
             )
-
-            // Animation for women3
 
 
             Image(

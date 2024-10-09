@@ -1,12 +1,8 @@
 package nz.ac.uclive.nse41.cancersociety.screens
 
 import BackButton
-import CustomButton
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,16 +16,11 @@ import androidx.compose.foundation.layout.size
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,7 +38,6 @@ import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
@@ -167,11 +157,6 @@ fun FinalScreen(navController: NavController, fullSequence: Boolean, cancerType:
                 ) {
                     Text("Finish", fontSize = 40.sp, color = Color.Black)
                 }
-
-
-
-
-
 
             }
         }

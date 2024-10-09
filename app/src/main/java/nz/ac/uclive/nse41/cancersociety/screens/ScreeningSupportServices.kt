@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,14 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -39,8 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTag
+
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,7 +43,6 @@ import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
@@ -97,7 +88,6 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Title
                     Text(
                         text = "Screening Support Services",
                         fontSize = responsiveFontSize(),
@@ -135,7 +125,6 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Button for Screening Support Services - centered above the images
                     Button(
                         onClick = {
                             val intent = Intent(
@@ -154,7 +143,6 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Images row - centered at the bottom
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -219,7 +207,6 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                             )
                         }
                     }} else {
-                        //not full
                     Button(
                         onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
                         colors = ButtonDefaults.buttonColors(containerColor = Bluey),
