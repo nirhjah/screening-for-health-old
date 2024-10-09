@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import nz.ac.uclive.nse41.cancersociety.screens.CancerHomepageScreen
+import nz.ac.uclive.nse41.cancersociety.screens.FinalScreen
 import nz.ac.uclive.nse41.cancersociety.screens.ScreeningSupportServicesScreen
 import nz.ac.uclive.nse41.cancersociety.screens.StatisticsScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhereToGetScreenedScreen
@@ -128,6 +129,18 @@ fun NavGraph (navController: NavHostController) {
         }
 
 
+        composable(
+            route = "${Screens.Final.route}/{fullSequence}/{cancerType}",
+            arguments = listOf(
+                navArgument("fullSequence") { type = NavType.BoolType },
+                navArgument("cancerType") { type = NavType.StringType },
+
+                )
+        ) { backStackEntry ->
+            val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
+            val cancerType = backStackEntry.arguments?.getString("cancerType")
+            FinalScreen(navController, fullSequence, cancerType)
+        }
 
 
 

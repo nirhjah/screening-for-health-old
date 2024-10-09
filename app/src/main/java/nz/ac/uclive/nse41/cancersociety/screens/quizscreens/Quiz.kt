@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -52,8 +54,10 @@ fun QuizScreen(
 ) {
     val context = LocalContext.current
     Log.d("QUIZ CANCER TYPE", cancerType.toString())
-    val quizQuestion = getQuizQuestionForCancerTypeAndSubsection(context, "Quiz.json", cancerType.toString(), currentScreen.toString())
 
+    val quizQuestion = remember(currentScreen, cancerType) {
+        getQuizQuestionForCancerTypeAndSubsection(context, "Quiz.json", cancerType.toString(), currentScreen.toString())
+    }
 
     val selectedAnswer = remember { mutableStateOf<String?>(null) }
 
@@ -88,12 +92,21 @@ fun QuizScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                    Text(
-                        text = quizQuestion.question,
-                        fontSize = responsiveFontSize(),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(16.dp)
-                    ) }
+                        Text(
+                            text = quizQuestion.question,
+                            fontSize = responsiveFontSize(),
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            lineHeight = 49.sp
+                        )
+
+
+                    }
+
+
 
                     val answers = quizQuestion.answers
                     if (answers.isNotEmpty()) {

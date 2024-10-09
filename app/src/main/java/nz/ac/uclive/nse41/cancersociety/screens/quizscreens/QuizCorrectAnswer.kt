@@ -81,6 +81,7 @@ val screenRoutesMap = mapOf(
     "WhoCanGetScreened" to Screens.WhoCanGetScreened.route,
     "WhereToGetScreened" to Screens.WhereToGetScreened.route,
     "BarriersToGettingScreened" to Screens.BarriersToGettingScreened.route,
-    "ScreeningSupportServices" to Screens.ScreeningSupportServices.route
+    "ScreeningSupportServices" to Screens.ScreeningSupportServices.route,
+    "Final" to Screens.Final.route
 
 )

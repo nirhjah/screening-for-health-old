@@ -26,10 +26,11 @@ fun CustomProgressBar(
     // Map the current screen index to the progress value
     val targetProgress = when (currentScreenIndex) {
         0 -> 0.0f
-        1 -> 0.25f
-        2 -> 0.5f
-        3 -> 0.75f
-        4 -> 1.0f
+        1 -> 0.2f
+        2 -> 0.4f
+        3 -> 0.6f
+        4 -> 0.8f
+        5 -> 1.0f
         else -> 0.0f
     }
 

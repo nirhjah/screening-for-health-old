@@ -132,7 +132,7 @@ fun QuizAnswerScreen(
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (cancerType != null) {
 
-                            if (quizSubsection == "ScreeningSupportServices") {
+                         /*   if (quizSubsection == "ScreeningSupportServices") {
                                 Button(
                                     onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
                                     colors = ButtonDefaults.buttonColors(containerColor = Bluey),
@@ -142,7 +142,7 @@ fun QuizAnswerScreen(
                                 ) {
                                     Text("Finish", fontSize = 40.sp, color = Color.Black)
                                 }
-                            } else {
+                            }*/
                                 CustomButton(
                                     text = "Next",
                                     route = nextScreenRoute,
@@ -154,7 +154,7 @@ fun QuizAnswerScreen(
                                         .align(Alignment.BottomEnd)
                                         .padding(16.dp)
                                 )
-                            }
+
 
 
 

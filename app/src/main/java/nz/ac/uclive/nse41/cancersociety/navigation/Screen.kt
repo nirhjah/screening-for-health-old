@@ -16,6 +16,7 @@ sealed class Screens(val route: String, @StringRes val resourceId: Int) {
     object WhereToGetScreened : Screens("where_to_get_screened", R.string.where_to_get_screened)
     object BarriersToGettingScreened : Screens("barriers_to_getting_screened", R.string.barriers_to_getting_screened)
     object ScreeningSupportServices : Screens("screening_support_services", R.string.screening_support_services)
+    object Final : Screens("final", R.string.final_screen)
     object Quiz : Screens("quiz", R.string.quiz)
     object QuizCorrectAnswer : Screens("quiz_correct_answer", R.string.quiz_correct_answer)
     object QuizWrongAnswer : Screens("quiz_wrong_answer", R.string.quiz_wrong_answer)
