@@ -16,14 +16,16 @@ import androidx.compose.ui.unit.dp
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Purple40
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Purple80
 
+/**
+ * Progress bar adapated from tutorial https://www.youtube.com/watch?v=SrSk8jErjPU
+ */
 @Composable
 fun CustomProgressBar(
     currentScreenIndex: Int,
-    modifier: Modifier = Modifier // Add modifier parameter
+    modifier: Modifier = Modifier
 ) {
     var progress by remember { mutableStateOf(0f) }
 
-    // Map the current screen index to the progress value
     val targetProgress = when (currentScreenIndex) {
         0 -> 0.0f
         1 -> 0.2f
@@ -34,7 +36,6 @@ fun CustomProgressBar(
         else -> 0.0f
     }
 
-    // Animate the progress when the screen index changes
     LaunchedEffect(key1 = currentScreenIndex) {
         progress = targetProgress
     }
@@ -47,28 +48,24 @@ fun CustomProgressBar(
         )
     )
 
-    // Column to stack the label and the progress bar vertically
     Column(
         modifier = modifier
-            .fillMaxWidth(0.8f) // Adjust as needed
-            .padding(16.dp), // Padding around the whole component
-        horizontalAlignment = Alignment.CenterHorizontally // Center the label and progress bar
+            .fillMaxWidth(0.7f) // adjust for size of progress bar
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Label/Text for the progress bar
         Text(
             text = "Progress",
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 1.dp) // Padding between the label and progress bar
+            modifier = Modifier.padding(bottom = 1.dp)
                 .align(Alignment.Start)
         )
 
-        // Progress Bar container
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(47.dp)
         ) {
-            // Text above the progress bar indicating the percentage
             Row(
                 modifier = Modifier
                     .widthIn(min = 30.dp)
@@ -78,13 +75,11 @@ fun CustomProgressBar(
                 Text(text = "${(progress * 100).toInt()}%")
             }
 
-            // Progress Bar
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(17.dp)
             ) {
-                // Background of the ProgressBar
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -92,7 +87,6 @@ fun CustomProgressBar(
                         .background(Purple80)
                 )
 
-                // Progress of the ProgressBar
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(size)

@@ -14,7 +14,6 @@ import com.google.gson.reflect.TypeToken
 import nz.ac.uclive.nse41.cancersociety.screens.CancerHomepageScreen
 import nz.ac.uclive.nse41.cancersociety.screens.FinalScreen
 import nz.ac.uclive.nse41.cancersociety.screens.ScreeningSupportServicesScreen
-import nz.ac.uclive.nse41.cancersociety.screens.StatisticsScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhereToGetScreenedScreen
 import nz.ac.uclive.nse41.cancersociety.screens.WhoCanGetScreenedScreen
 import nz.ac.uclive.nse41.cancersociety.screens.quizscreens.QuizAnswerScreen
@@ -60,23 +59,6 @@ fun NavGraph (navController: NavHostController) {
             val cancerType = backStackEntry.arguments?.getString("cancerType") ?: ""
             CancerHomepageScreen(navController, cancerType)
         }
-
-
-
-
-        composable(
-            route = "${Screens.Statistics.route}/{fullSequence}/{cancerType}",
-            arguments = listOf(
-                navArgument("fullSequence") { type = NavType.BoolType },
-                navArgument("cancerType") { type = NavType.StringType },
-
-                )
-        ) { backStackEntry ->
-            val fullSequence = backStackEntry.arguments?.getBoolean("fullSequence") ?: false
-            val cancerType = backStackEntry.arguments?.getString("cancerType")
-            StatisticsScreen(navController, fullSequence, cancerType)
-        }
-
 
         composable(
             route = "${Screens.WhoCanGetScreened.route}/{fullSequence}/{cancerType}",

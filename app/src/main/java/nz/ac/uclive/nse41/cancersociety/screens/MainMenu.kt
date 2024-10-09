@@ -2,6 +2,7 @@
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -94,8 +95,7 @@ fun MainMenuScreen(navController: NavController) {
                     )
 
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(14.dp),
-                        modifier = Modifier.horizontalScroll(rememberScrollState())
+                        horizontalArrangement = Arrangement.spacedBy(15.dp),
                     ) {
 
                         NavButton(
@@ -118,6 +118,11 @@ fun MainMenuScreen(navController: NavController) {
                         )
 
                     }
+
+                    Text(
+                        text ="Tap a cancer type to find out more about its programme in New Zealand!", textAlign = TextAlign.Center, fontSize = 26.sp, fontWeight = FontWeight.Medium, modifier = Modifier
+                            .padding(0.dp)
+                    )
 
                 }
 
@@ -148,7 +153,7 @@ fun NavButton(
 ) {
 
     Card(
-        colors = CardDefaults.cardColors(containerColor = Orange,
+        colors = CardDefaults.cardColors(containerColor = Bluey,
             contentColor = Color.Black),
         modifier = Modifier
             .size(width = 200.dp, height = 200.dp)

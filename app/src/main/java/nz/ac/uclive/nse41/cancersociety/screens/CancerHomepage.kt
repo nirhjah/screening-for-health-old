@@ -203,7 +203,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                     modifier = Modifier.padding(16.dp)
                                 ) {
                                     Icon(
-                                        painter = painterResource(id = R.drawable.quiz_icon),
+                                        painter = painterResource(id = R.drawable.quiz_icon2),
                                         contentDescription = "Quiz Icon",
                                         tint = Color.Black,
                                         modifier = Modifier.size(48.dp)
@@ -277,49 +277,6 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                 }
 
                                 Card(
-                                    colors = CardDefaults.cardColors(containerColor = Bluey,
-                                        contentColor = Color.Black),
-                                    modifier = Modifier
-                                        .size(width = 200.dp, height = 200.dp)
-                                        .clickable {
-                                            Toast
-                                                .makeText(
-                                                    context,
-                                                    "Statistics page coming soon",
-                                                    Toast.LENGTH_SHORT
-                                                )
-                                                .show()
-                                        }
-
-                                ) {
-                                    Box(
-                                        contentAlignment = Alignment.Center,
-                                        modifier = Modifier.fillMaxSize()
-                                    ) {
-                                        Column(
-                                            horizontalAlignment = Alignment.CenterHorizontally,
-                                            verticalArrangement = Arrangement.Center,
-                                            modifier = Modifier.padding(16.dp)
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.stats_icon),
-                                                contentDescription = "Quiz Icon",
-                                                tint = Color.Black,
-                                                modifier = Modifier.size(48.dp)
-                                            )
-
-                                            Text(
-                                                text = "Statistics",
-                                                fontWeight = FontWeight.ExtraBold,
-                                                modifier = Modifier.padding(16.dp),
-                                                textAlign = TextAlign.Center,
-                                            )
-
-                                        }
-                                    }
-                                }
-
-                                Card(
                                     colors = CardDefaults.cardColors(containerColor = containerColor,
                                         contentColor = Color.Black),
                                     modifier = Modifier
@@ -355,7 +312,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                                 }
 
                                 Card(
-                                    colors = CardDefaults.cardColors(containerColor = Bluey,
+                                    colors = CardDefaults.cardColors(containerColor = containerColor,
                                         contentColor = Color.Black),
                                     modifier = Modifier
                                         .size(width = 200.dp, height = 200.dp)

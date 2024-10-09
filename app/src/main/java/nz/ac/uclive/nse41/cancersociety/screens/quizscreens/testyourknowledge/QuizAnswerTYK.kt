@@ -89,11 +89,15 @@ fun QuizAnswerTYKScreen(navController: NavController, currentQuestionIndex: Int,
                         )
                     }
 
+                    var text = "Next"
+                    val nextQuestionIndex = currentQuestionIndex + 1
+                    if (nextQuestionIndex == questions.size) {
+                        text = "Finish"
+                    }
 
                     Box(modifier = Modifier.fillMaxSize()) {
 
 
-                            // Next Button
                             Button(
                                 modifier = Modifier
                                     .align(Alignment.BottomEnd),
@@ -112,7 +116,7 @@ fun QuizAnswerTYKScreen(navController: NavController, currentQuestionIndex: Int,
 
                                 }
                             }) {
-                                Text("Next")
+                                Text(text)
                             }
                     }
                 }

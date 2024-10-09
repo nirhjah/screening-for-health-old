@@ -4,16 +4,12 @@
       "cancer": "Breast Cancer",
       "subsections": [
         {
-          "subsection": "Statistics",
-          "info": ["Breast cancer statistics content 1", "Breast cancer statistics content 2"]
-        },
-        {
           "subsection": "Who can get screened",
           "info": ["You can get your free test from when you are 45...", "...up until you are 69!", "And you can still get screened even if you feel healthy!"]
         },
         {
           "subsection": "Where to get screened",
-          "info": ["Screening mammograms can be done at BreastScreen clinics across the country, with mobile units coming through smaller towns throughout the year!", "https://info.health.nz/keeping-healthy/cancer-screening/breast-screening/breast-screening-clinic-locations"]
+          "info": ["Screening mammograms can be done at BreastScreen clinics across the country, with mobile units coming through smaller towns throughout the year!", "https://info.health.nz/keeping-healthy/cancer-screening/breast-screening/breast-screening-clinic-locations", "http://www.timetoscreen.nz/breast-screening/sign-up/"]
         },
         {
           "subsection": "Screening support services",
@@ -24,10 +20,6 @@
     {
       "cancer": "Bowel Cancer",
       "subsections": [
-        {
-          "subsection": "Statistics",
-          "info": ["Bowel cancer statistics content 1", "Bowel cancer statistics content 2"]
-        },
         {
           "subsection": "Who can get screened",
           "info": ["You can get your free test from when you are 60...", "...up until you are 74!", "And you can still get screened even if you feel healthy!"]
@@ -45,10 +37,6 @@
     {
       "cancer": "Cervical Cancer",
       "subsections": [
-        {
-          "subsection": "Statistics",
-          "info": ["cervical cancer statistics content 1", "cervical cancer statistics content 2"]
-        },
         {
           "subsection": "Who can get screened",
           "info": ["You can get your free test from when you are 25...", "...up until you are 69!", "Follow-up testing is free for everyone, regardless of their eligibility for free routine screening"]

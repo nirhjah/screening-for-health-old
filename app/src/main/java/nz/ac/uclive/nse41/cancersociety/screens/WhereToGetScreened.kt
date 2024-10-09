@@ -150,6 +150,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(0.dp)
+
                     ) {
                         items(5) {
                             Image(
@@ -196,6 +197,21 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                             .offset(x = (-450).dp, y = 170.dp)
                             .clickable {
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(1)))
+                                context.startActivity(intent)
+                            }
+                    )
+                }
+
+                if (cancerType == "Breast Cancer") {
+                    Image(
+                        painter = painterResource(id = R.drawable.van),
+                        contentDescription = "van",
+                        modifier = Modifier
+                            .size(310.dp)
+                            .align(Alignment.Center)
+                            .offset(x = (-460).dp, y = 130.dp)
+                            .clickable {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(whereToGetScreenedSubSection?.info?.get(2)))
                                 context.startActivity(intent)
                             }
                     )
@@ -389,6 +405,51 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                             ) {
                                 Text(
                                     text = "Tap the doctor to find out how to do a self-test!",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                    }
+
+
+                }
+
+
+
+                if (cancerType == "Breast Cancer") {
+
+
+                    AnimatedVisibility(
+                        visible = isVisible,
+                        enter = fadeIn() + slideInHorizontally(
+                            animationSpec = tween(durationMillis = 2500),
+                            initialOffsetX = { 0 }
+                        ),
+
+                        modifier = Modifier.offset(75.dp, 190.dp)
+
+                    ) {
+                        Card(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(start = 6.dp)
+                                .size(210.dp, 145.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surface,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            ),
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "Tap the van book your free mammogram if you're 45-69!",
                                     fontWeight = FontWeight.Bold
                                 )
                             }

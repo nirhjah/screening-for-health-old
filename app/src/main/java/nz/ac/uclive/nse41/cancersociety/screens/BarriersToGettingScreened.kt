@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -88,9 +89,10 @@ fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: 
 
 
                     Text(
-                        text = "People may face barriers to getting screened, such as the below ones but there are many support services in place to help and make it easy for you!",
+                        text = "People may face barriers to getting screened, such as the ones below but there are many support services in place to help and make it easy for you!",
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
                     )
 
                     Row(
