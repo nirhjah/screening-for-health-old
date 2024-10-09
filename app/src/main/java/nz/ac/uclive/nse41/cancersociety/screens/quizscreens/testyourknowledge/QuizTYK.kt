@@ -56,44 +56,45 @@ fun QuizTYKScreen(navController: NavController, questions: List<QuizQuestion>, c
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
-            contentColor = Color.Black // Adjusted content color for better readability
+            contentColor = Color.Black 
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                if (quizQuestion != null) {
-                    Column(
+                val currQuestionDisplay = currentQuestionIndex + 1
+                Text(text = "Question $currQuestionDisplay / 5", fontSize = 19.sp, modifier = Modifier.align(
+                    Alignment.TopStart))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(50.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    Text(
+                        text = quizQuestion.question,
+                        fontSize = responsiveFontSize(),
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(50.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        lineHeight = 49.sp
+                    )
+
+
+                }
+
+
+                val answers = quizQuestion.answers
+                if (answers.isNotEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(0.4f)
+                            .padding(16.dp)
+                            .aspectRatio(1f)
+                            .align(Alignment.Center)
                     ) {
-
-                        Text(
-                            text = quizQuestion.question,
-                            fontSize = responsiveFontSize(),
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp),
-                            lineHeight = 49.sp
-                        )
-
-
-                    }
-
-
-
-                    val answers = quizQuestion.answers
-                    if (answers.isNotEmpty()) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(0.4f)
-                                .padding(16.dp)
-                                .aspectRatio(1f)
-                                .align(Alignment.Center)
-                        ) {
-                            MyGridTYK(answers, selectedAnswer)
-                        }
+                        MyGridTYK(answers, selectedAnswer)
                     }
                 }
 
