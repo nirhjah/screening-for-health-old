@@ -2,14 +2,17 @@ package nz.ac.uclive.nse41.cancersociety.screens.quizscreens
 
 import QuizCheckButton
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -31,12 +34,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.getCancerTypeColor
 import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
@@ -110,15 +115,48 @@ fun QuizScreen(
 
                     val answers = quizQuestion.answers
                     if (answers.isNotEmpty()) {
-                        Box(
+                        Row(
                             modifier = Modifier
-                                .fillMaxSize(0.4f)
-                                .padding(16.dp)
-                                .aspectRatio(1f)
-                                .align(Alignment.Center)
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            MyGrid(answers, selectedAnswer, cancerType.toString())
+
+                            val imageRes3 = if (cancerType == "Bowel Cancer") {
+                                R.drawable.men1
+                            } else {
+                                R.drawable.women1
+                            }
+
+                            Image(
+                                painter = painterResource(imageRes3),
+                                contentDescription = "Woman 1",
+                                modifier = Modifier
+                                    .size(250.dp)
+                                    .weight(0.5f) // Control the width of the image
+                            )
+
+                            // Grid in the center
+                            Box(
+                                modifier = Modifier
+                                    .weight(0.7f) // Make the grid take more space
+                                    .padding(horizontal = 16.dp)
+                                    .aspectRatio(1f)
+                            ) {
+                                MyGrid(answers, selectedAnswer, cancerType.toString())
+                            }
+
+                            // Second image (right side)
+                            Image(
+                                painter = painterResource(id = R.drawable.women2),
+                                contentDescription = "Woman 2",
+                                modifier = Modifier
+                                    .size(250.dp)
+                                    .weight(0.5f) // Control the width of the image
+                            )
                         }
+
                     }
                 }
 

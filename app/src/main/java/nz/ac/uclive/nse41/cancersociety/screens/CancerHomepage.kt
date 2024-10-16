@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import nz.ac.uclive.nse41.cancersociety.R
@@ -74,6 +75,9 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
         else -> 0.dp
     }
 
+    var showDialog by remember { mutableStateOf(false) }
+
+
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
@@ -101,8 +105,45 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                     modifier = Modifier.fillMaxSize()
                 ) {
 
-
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
                         HomepageBackButton(navController)
+
+                        Button(
+                            onClick = { showDialog = true },
+                            colors = ButtonDefaults.buttonColors(containerColor = Bluey, contentColor = Color.Black),
+                            modifier = Modifier
+                                .height(60.dp)
+                                .width(150.dp)
+                                .background(Bluey, shape = MaterialTheme.shapes.large)
+                        ) {
+                            Text("Help", fontSize = 35.sp)
+                        }
+                    }
+
+
+
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showDialog = false },
+                            title = { Text("Help", textAlign = TextAlign.Center, fontWeight = FontWeight.Bold) },
+                            text = { Text("Test your knowledge of $cancerType in NZ: Click this to be quizzed on 5 questions relating to content in this app about $cancerType!\n" +
+                                    "\nWhat is screening?: Learn what screening is in simple terms.\n" +
+                                    "\nWho can get screened?: Learn the ages of who can get screened for " + cancerType + ".\n" +
+                                    "\nWhere to get screened?: Learn where you can get screened for " + cancerType + "!\n" +
+                                    "\nBarriers to getting screened: Learn about some common barriers people face, and what support there is available!\n" +
+                                    "\nOr learn them all!: Learn all 4 topics in one go, with quiz questions throughout the process to test your knowledge." ) },
+                            confirmButton = {
+                                Button(onClick = { showDialog = false }) {
+                                    Text("Close", color = Color.Black)
+                                }
+                            }
+                        )
+                    }
 
 
 

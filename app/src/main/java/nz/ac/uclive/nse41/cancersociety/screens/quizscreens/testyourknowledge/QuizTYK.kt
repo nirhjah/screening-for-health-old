@@ -56,7 +56,7 @@ fun QuizTYKScreen(navController: NavController, questions: List<QuizQuestion>, c
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
-            contentColor = Color.Black 
+            contentColor = Color.Black
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 val currQuestionDisplay = currentQuestionIndex + 1
