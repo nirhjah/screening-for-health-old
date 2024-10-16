@@ -78,7 +78,7 @@
       "subsection": "WhereToGetScreened",
       "question": "Where can you get your cervical screen done?",
       "answers": [
-        "Your usual doctor/nurse at a GP clinic",
+        "Your usual doctor or nurse at a GP clinic",
         "Māori, Pacific or women’s community health centres",
         "At home",
         "All of the above"
@@ -93,7 +93,7 @@
         "You can only get screened at a clinic",
         "You can do a self-test",
         "You must go to a hospital",
-        "You need a referral from a specialist"
+        "You get a referral from a specialist"
       ],
       "correctAnswer": "You can do a self-test",
       "response": "You can even request to do a self-test for cervical screening, allowing for greater privacy and convenience!"
@@ -112,7 +112,7 @@
     },
     {
       "subsection": "WhoCanGetScreened",
-      "question": "At what age can wahine start getting a free cervical screening test in New Zealand?",
+      "question": "At what age can wahine start getting a free cervical screening test in NZ?",
       "answers": [
         "20 years old",
         "25 years old",
