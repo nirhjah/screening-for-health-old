@@ -1,11 +1,8 @@
 # Screening for Health - A Cancer Society App
 
 
-Screening for Health is a mobile application by the Cancer Society. Its aim is to help people understand what screening is in order to encourage more people to get screened early. The app covers content for the three main screening programmes in New Zealand: Breast Cancer, Bowel Cancer and Cervical Cancer.
+Screening for Health is a tablet application by the Cancer Society. Its aim is to help people understand what screening is in order to encourage more people to get screened early. The app covers content for the three main screening programmes in New Zealand: Breast Cancer, Bowel Cancer and Cervical Cancer.
 
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
 ## Installation
 
@@ -71,13 +68,30 @@ https://developer.android.com/studio/run/device#connect
 TBD
 
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Code Structure
+
+The code has been written using Kotlin, and is structured in 4 different directories/folders: Navigation, Screens, UI.Theme, and Utilities. Most code files will have a Javadoc at the top to describe the purpose of it. 
+
+### Navigation
+
+This folder holds all code files related to how the navigation in the app works (i.e. going from screen to screen)
+
+## Screens
+
+This is the main folder with all the code for each screen of the app.
+
+## UI.Theme
+
+This holds the colours and themes used for the app styling
+
+## Utilities
+
+This has code related to reading the JSON files for quiz questions and information, and also code on making different elements of the page responsive to screen size
 
 
 ## Authors and acknowledgment
 
-Developed by Nirhjah Selvarajah, 2024. With the help of the team at Cancer Society.
+This app was developed for the Cancer Society.
 
 ## License
 
