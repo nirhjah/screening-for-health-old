@@ -166,7 +166,7 @@ fun NavGraph (navController: NavHostController) {
             val quizSubsection = backStackEntry.arguments?.getString("quizSubsection")
 
             if (quizSubsection != null) {
-                QuizAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse, quizCorrect, quizSubsection)
+                QuizAnswerScreen(navController, nextScreen, fullSequence, cancerType, quizResponse, quizCorrect)
             }
         }
 
