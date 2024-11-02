@@ -37,18 +37,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.screens.getCancerTypeColor
-import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.getQuizQuestionForCancerTypeAndSubsection
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * The quiz screen that is shown throughout the learn them all/full sequence part of the app
+ * Shows 4 options for answers for the user to select from, question is based on content from the slide before
+ */
 @Composable
 fun QuizScreen(
     navController: NavController,
@@ -58,7 +61,6 @@ fun QuizScreen(
     cancerType: String?
 ) {
     val context = LocalContext.current
-    Log.d("QUIZ CANCER TYPE", cancerType.toString())
 
     val quizQuestion = remember(currentScreen, cancerType) {
         getQuizQuestionForCancerTypeAndSubsection(context, "Quiz.json", cancerType.toString(), currentScreen.toString())
@@ -67,9 +69,8 @@ fun QuizScreen(
     val selectedAnswer = remember { mutableStateOf<String?>(null) }
 
 
-
+    //Times how long user spent on the screen - for internal purposes only
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
-
     DisposableEffect(Unit) {
         onDispose {
 
@@ -86,7 +87,7 @@ fun QuizScreen(
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
-            contentColor = Color.Black // Adjusted content color for better readability
+            contentColor = Color.Black
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 if (quizQuestion != null) {
@@ -134,26 +135,24 @@ fun QuizScreen(
                                 contentDescription = "Woman 1",
                                 modifier = Modifier
                                     .size(250.dp)
-                                    .weight(0.5f) // Control the width of the image
+                                    .weight(0.5f)
                             )
 
-                            // Grid in the center
                             Box(
                                 modifier = Modifier
-                                    .weight(0.7f) // Make the grid take more space
+                                    .weight(0.7f)
                                     .padding(horizontal = 16.dp)
                                     .aspectRatio(1f)
                             ) {
                                 MyGrid(answers, selectedAnswer, cancerType.toString())
                             }
 
-                            // Second image (right side)
                             Image(
                                 painter = painterResource(id = R.drawable.women2),
                                 contentDescription = "Woman 2",
                                 modifier = Modifier
                                     .size(250.dp)
-                                    .weight(0.5f) // Control the width of the image
+                                    .weight(0.5f)
                             )
                         }
 
@@ -193,9 +192,11 @@ fun QuizScreen(
     }
 }
 
+/**
+ * Shows grid of cards for the 4 possible quiz answers
+ */
 @Composable
 fun MyGrid(answers: List<String>, selectedAnswer: MutableState<String?>, cancerType: String) {
-    val selectedCard = remember { mutableStateOf<Int?>(null) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -208,6 +209,9 @@ fun MyGrid(answers: List<String>, selectedAnswer: MutableState<String?>, cancerT
     }
 }
 
+/**
+ * This is how each possible quiz answer is displayed
+ */
 @Composable
 fun MyCard(text: String, selectedAnswer: MutableState<String?>, cancerType: String) {
     val isSelected = remember { mutableStateOf(false) }

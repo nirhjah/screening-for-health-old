@@ -4,7 +4,6 @@ import HomepageBackButton
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import nz.ac.uclive.nse41.cancersociety.R
@@ -43,7 +41,12 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.Green
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Pink
 import nz.ac.uclive.nse41.cancersociety.utilities.getQuizQuestionsForCancerType
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * This code is for the Cancer Homepage screen which allows the user to either test their knowledge on X cancer type with a quiz,
+ * or explore the 4 different subtopics available.
+ */
 @Composable
 fun CancerHomepageScreen(navController: NavController, cancerType: String) {
     Log.d("MyActivity", cancerType)
@@ -51,9 +54,11 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
     val context = LocalContext.current
     var fullSequence = false
 
+
+   // A start was made on making this application mobile friendly for different sized devices, this code uses the screenwidth to determine
+    // the size and positioning of different elements.
     val configuration = LocalConfiguration.current
     val screenWidthDp = configuration.screenWidthDp
-    Log.d("This is screen",  " this is screenwdith " + screenWidthDp)
     val fontSize = when {
         screenWidthDp < 412 -> 54.sp
         else -> 84.sp
@@ -81,6 +86,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
+    //Records time user spent on this screen - for analysis use only
     DisposableEffect(Unit) {
         onDispose {
             val timeSpent = System.currentTimeMillis() - startTime
@@ -113,6 +119,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                     ) {
                         HomepageBackButton(navController)
 
+                        //Help Button
                         Button(
                             onClick = { showDialog = true },
                             colors = ButtonDefaults.buttonColors(containerColor = Bluey, contentColor = Color.Black),
@@ -224,6 +231,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             modifier = Modifier.fillMaxWidth().padding(top = topPadding)
 
                         ) {
+                            //This button/card is for testing your knowledge on X cancer in NZ with a quiz
                             ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
@@ -277,6 +285,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
 
                             Spacer(modifier = Modifier.height(20.dp))
 
+                            //The row of buttons (cards) that take you to each sub topic
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                                 modifier = Modifier.horizontalScroll(rememberScrollState())
@@ -425,6 +434,8 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
 
                             Spacer(modifier = Modifier.height(20.dp))
 
+                            //This card/button is for the 'learn them all' button taking the user through all 4 subtopics in one go
+                            //with some quiz questions in between
                             ElevatedCard(
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                                 colors = CardDefaults.elevatedCardColors(
@@ -490,6 +501,7 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
                             }
 
 
+                            //Clicking the buttons below take you to the webpages above
                             Button(
                                 onClick = {
                                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
@@ -539,6 +551,9 @@ fun CancerHomepageScreen(navController: NavController, cancerType: String) {
     }
 }
 
+/**
+ * This function gets the colour by cancer type, the colour is used to colour the buttons/cards on this page for each cancer type
+ */
 fun getCancerTypeColor(cancerType: String): Color {
     return when (cancerType) {
         "Breast Cancer" -> Pink

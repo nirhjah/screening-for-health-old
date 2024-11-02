@@ -41,6 +41,9 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
+/**
+ * The final screen which is shown at the very end of the full sequence flow only.
+ */
 @Composable
 fun FinalScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     val context = LocalContext.current

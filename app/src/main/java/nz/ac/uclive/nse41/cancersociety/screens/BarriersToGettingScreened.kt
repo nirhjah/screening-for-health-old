@@ -35,10 +35,13 @@ import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
-import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * The Barriers to Getting screened screen
+ */
 @Composable
 fun BarriersToGettingScreenedScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     val context = LocalContext.current

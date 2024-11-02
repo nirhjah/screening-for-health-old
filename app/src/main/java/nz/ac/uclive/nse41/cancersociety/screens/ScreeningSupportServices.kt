@@ -45,7 +45,11 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * The Screening support services page is shown after the barriers to getting screened screen.
+ */
 @Composable
 fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     val context = LocalContext.current
@@ -54,6 +58,8 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
 
     val screeningSupportServicesSubsection = selectedCancer?.subsections?.find { it.subsection == "Screening support services" }
     Log.d("screeningSupportServicesSubsection", screeningSupportServicesSubsection.toString())
+
+    //Times how long user spent on the screen - for internal purposes only
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
@@ -94,7 +100,7 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                         fontWeight = FontWeight.Bold
                     )
 
-                    // Display information text
+                    //Displays part 1 of screening support services info
                     screeningSupportServicesSubsection?.info?.get(0)?.let {
                         Text(
                             text = it,
@@ -103,7 +109,7 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                         )
                     }
 
-                    // Bullet points
+                    //Displays the bullet point information of the screening support services info
                     val bulletPoints = screeningSupportServicesSubsection?.info?.drop(1)?.dropLast(1) ?: listOf()
                     bulletPoints.forEach { item ->
                         Text(
@@ -114,7 +120,7 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                         )
                     }
 
-                    // Last info text
+                    // Displays last part of screening support services info
                     screeningSupportServicesSubsection?.info?.lastOrNull()?.let {
                         Text(
                             text = it,
@@ -150,7 +156,7 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
                         horizontalArrangement = Arrangement.Center
                     ) {
 
-
+                        //Shows men/women images depending of bowel cancer or other types.
                         val imageRes2 = if (cancerType == "Bowel Cancer") {
                             R.drawable.men2
                         } else {
@@ -164,17 +170,17 @@ fun ScreeningSupportServicesScreen(navController: NavController, fullSequence: B
 
                         Image(
                             painter = painterResource(id = R.drawable.women1),
-                            contentDescription = "Woman 1",
+                            contentDescription = "Person 1",
                             modifier = Modifier.size(200.dp)
                         )
                         Image(
                             painter = painterResource(imageRes2),
-                            contentDescription = "Woman 2",
+                            contentDescription = "Person 2",
                             modifier = Modifier.size(200.dp)
                         )
                         Image(
                             painter = painterResource(imageRes3),
-                            contentDescription = "Woman 3",
+                            contentDescription = "Person 3",
                             modifier = Modifier.size(200.dp)
                         )
                     }

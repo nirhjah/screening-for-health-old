@@ -2,11 +2,8 @@
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -36,17 +33,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
-import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * Main Menu Screen with the 3 buttons to go to either topics: Bowel Cancer, Breast Cancer or Cervical Cancer
+ */
 @Composable
 fun MainMenuScreen(navController: NavController) {
 
     val context = LocalContext.current
 
+    //Times how long user spent on the screen - for internal purposes only
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
     DisposableEffect(Unit) {
@@ -71,7 +72,6 @@ fun MainMenuScreen(navController: NavController) {
                     .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Image of women1 on the left
                 Image(
                     painter = painterResource(id = R.drawable.women1),
                     contentDescription = "Women1",
@@ -140,7 +140,9 @@ fun MainMenuScreen(navController: NavController) {
     }
 }
 
-
+/**
+ * This button is used to navigate to either of the cancer homepages
+ */
 @Composable
 fun NavButton(
     text: String,
@@ -187,6 +189,9 @@ fun NavButton(
 
 }
 
+/**
+ * This button is the generic back button used on most screens
+ */
 @Composable
 fun BackButton(navController: NavController) {
     Button(
@@ -201,6 +206,9 @@ fun BackButton(navController: NavController) {
     }
 }
 
+/**
+ * This button is the back button on each cancer homepage to go back to the main menu
+ */
 @Composable
 fun HomepageBackButton(navController: NavController) {
     Button(
@@ -216,6 +224,9 @@ fun HomepageBackButton(navController: NavController) {
 }
 
 
+/**
+ * This button is used as the 'Next' button on all screens that require a Next button to go to the next topic screen or quiz screen
+ */
 @Composable
 fun CustomButton(
     text: String,
@@ -247,6 +258,9 @@ fun CustomButton(
     }
 }
 
+/**
+ * This button takes the user to the quiz answer page
+ */
 @Composable
 fun QuizCheckButton(
     text: String,

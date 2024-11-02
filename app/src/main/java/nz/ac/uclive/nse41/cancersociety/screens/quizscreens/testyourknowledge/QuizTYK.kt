@@ -39,10 +39,14 @@ import com.google.gson.Gson
 
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.QuizQuestion
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
+/**
+ * This quiz screen is for the 'test your own knowledge on x cancer type' quiz, where the user is taken through 5 random quiz questions related to content for whichever cancer
+ * type screen they are on, and is not limited to a certain topic. Score is also calculated for this quiz.
+ * The code for this is mostly similar to that in Quiz.kt
+ */
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun QuizTYKScreen(navController: NavController, questions: List<QuizQuestion>, currentQuestionIndex: Int, currentScore: Int) {

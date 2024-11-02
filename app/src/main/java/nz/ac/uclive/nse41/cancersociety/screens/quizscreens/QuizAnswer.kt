@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,18 +26,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
-import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
+
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.utilities.Subsection
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
+
+/**
+ * This screen shows the answer for the previous quiz question and whether the user was right/wrong
+ */
 
 @Composable
 fun QuizAnswerScreen(
@@ -48,11 +48,11 @@ fun QuizAnswerScreen(
     fullSequence: Boolean,
     cancerType: String?,
     quizResponse: String?,
-    quizCorrect: Boolean,
-    quizSubsection: String
-) {
+    quizCorrect: Boolean) {
 
     val context = LocalContext.current
+
+    //Times how long user spent on the screen - for internal purposes only
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
@@ -132,17 +132,6 @@ fun QuizAnswerScreen(
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (cancerType != null) {
 
-                         /*   if (quizSubsection == "ScreeningSupportServices") {
-                                Button(
-                                    onClick = { navController.navigate("${Screens.CancerHomepage.route}/$cancerType") },
-                                    colors = ButtonDefaults.buttonColors(containerColor = Bluey),
-                                    modifier = Modifier
-                                        .align(Alignment.BottomEnd)
-                                        .padding(16.dp)
-                                ) {
-                                    Text("Finish", fontSize = 40.sp, color = Color.Black)
-                                }
-                            }*/
                                 CustomButton(
                                     text = "Next",
                                     route = nextScreenRoute,
@@ -168,6 +157,8 @@ fun QuizAnswerScreen(
     }
 }
 
+
+//A map of each screen to what the screen after it is
 val screenRoutesMap = mapOf(
     "Symptoms" to Screens.Symptoms.route,
     "WhoCanGetScreened" to Screens.WhoCanGetScreened.route,

@@ -36,7 +36,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -68,7 +67,12 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * The where to get screened screen is slightly different for all 3 cancer types - it will show some information on where to get screened and show some
+ * external links
+ */
 @Composable
 fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     var isVisible by remember { mutableStateOf(false) }
@@ -86,6 +90,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
 
     val showOrderTestKitModal = remember { mutableStateOf(false) }
 
+    //Times how long user spent on the screen - for internal purposes only
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
     DisposableEffect(Unit) {
@@ -121,7 +126,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                 if (fullSequence) {
                     CustomProgressBar(
                         currentScreenIndex = 2,
-                        modifier = Modifier.align(Alignment.TopCenter).zIndex(1f)  // Centers the progress bar inside the Box
+                        modifier = Modifier.align(Alignment.TopCenter).zIndex(1f)
                     )                             }
 
                 Column(
@@ -163,14 +168,14 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     }
                 }
 
-
+                //shows a man if it is on the bowel cancer screen, woman if on the other cancer types
                 val imageRes1 = if (cancerType == "Bowel Cancer") {
                     R.drawable.men3
                 } else {
                     R.drawable.women3
                 }
 
-
+                //Shows the mail box image if on the bowel cancer screen - to show that you can post your bowel testing kit. And can tap on it to find out more information
                 if (cancerType == "Bowel Cancer") {
                     Image(
                         painter = painterResource(id = R.drawable.mailbox),
@@ -186,7 +191,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     )
                 }
 
-
+                //Shows a doctor image (instead of mailbox) for cervical cancer, clicking on it takes you to more information on how to self-test
                 if (cancerType == "Cervical Cancer") {
                     Image(
                         painter = painterResource(id = R.drawable.doctor),
@@ -202,6 +207,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     )
                 }
 
+                //Shows a van/bus (instead of the above) for breast cancer, clicking on it shows more info for booking a mammogram
                 if (cancerType == "Breast Cancer") {
                     Image(
                         painter = painterResource(id = R.drawable.van),
@@ -227,8 +233,8 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                         .offset(x = Dp(offsetX.value), y = 280.dp)
                 )
 
+                //If the cancer type is bowel cancer, shows a house, otherwise it will show a hospital image in the center
                 if (cancerType == "Bowel Cancer") {
-
 
                     Image(
                         painter = painterResource(id = R.drawable.house),
@@ -259,15 +265,12 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                     modifier = Modifier.offset(900.dp, 260.dp)
 
                 ) {
+                    //This card appears on the right hand side of the screen showing information on where to get screened for x cancer
                     Card(
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(start = 6.dp)
 
-
-                            /*
-                            .offset(x = responsiveHospitalImage() + 516.dp, y = 260.dp)
-*/
                             .size(300.dp, 300.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                         colors = CardDefaults.cardColors(
@@ -324,10 +327,13 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                         }
                     }
 
+
+
+
                 }
 
 
-                //bowel cancer only
+                //animations for the mailbox images for bowel cancer
                 if (cancerType == "Bowel Cancer") {
 
 
@@ -371,7 +377,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
 
             }
 
-
+                //Animations for the doctor image for cervical cancer
                 if (cancerType == "Cervical Cancer") {
 
 
@@ -416,7 +422,7 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
                 }
 
 
-
+                //animation for the bus/van image for breast cancer
                 if (cancerType == "Breast Cancer") {
 
 
@@ -460,11 +466,11 @@ fun WhereToGetScreenedScreen(navController: NavController, fullSequence: Boolean
 
                 }
 
-
+                //Opens the modal if you click order test kit button (for bowel cancer)
                 if (showOrderTestKitModal.value) {
                     val infoList = whereToGetScreenedSubSection?.info
                     val bulletPoints = infoList?.drop(1)?.dropLast(1) ?: listOf()
-
+                    //the modal displayed when clicking the order test kit button
                     AlertDialog(
                         onDismissRequest = { showOrderTestKitModal.value = false },
                         title = { Text("Order a test kit through...") },

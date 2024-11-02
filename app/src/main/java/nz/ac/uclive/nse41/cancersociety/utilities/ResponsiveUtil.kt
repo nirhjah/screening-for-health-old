@@ -18,7 +18,7 @@ fun responsiveFontSize(): TextUnit {
     return when {
         screenWidthDp < 412 -> 40.sp
         screenWidthDp < 801 -> 60.sp
-        else -> 59.sp //84 used to be
+        else -> 59.sp
     }
 }
 

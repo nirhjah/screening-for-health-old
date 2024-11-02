@@ -29,6 +29,9 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 
+/**
+ * The final score screen that is displayed at the end of the test your knowledge quiz to show the final score.
+ */
 @Composable
 fun FinalScoreScreen(navController: NavController, finalScore: Int) {
 

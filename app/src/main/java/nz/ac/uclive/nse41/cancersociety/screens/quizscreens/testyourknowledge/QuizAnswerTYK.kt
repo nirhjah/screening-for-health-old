@@ -1,7 +1,6 @@
 package nz.ac.uclive.nse41.cancersociety.screens.quizscreens.testyourknowledge
 
 import android.net.Uri
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,13 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import nz.ac.uclive.nse41.cancersociety.R
-import nz.ac.uclive.nse41.cancersociety.navigation.Screens
 import nz.ac.uclive.nse41.cancersociety.ui.theme.Bluey
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.QuizQuestion
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
-
+/**
+ * This screen shows the answer for the previous quiz question and whether the user was right/wrong
+ */
 @Composable
 fun QuizAnswerTYKScreen(navController: NavController, currentQuestionIndex: Int, quizCorrect: Boolean, questions: List<QuizQuestion>, currentScore: Int) {
 
@@ -107,8 +106,6 @@ fun QuizAnswerTYKScreen(navController: NavController, currentQuestionIndex: Int,
 
                                 val nextQuestionIndex = currentQuestionIndex + 1
                                 if (nextQuestionIndex == questions.size) {
-                                    //TODO Go to final quiz page saying nice work
-                                   // navController.navigate(Screens.MainMenu.route)
                                     navController.navigate("final_score_screen/$currentScore")
                                 } else {
                                     val questionsJson = Gson().toJson(questions)

@@ -5,9 +5,7 @@ import CustomButton
 import android.content.Context
 import android.os.Environment
 import android.util.Log
-import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,6 +38,7 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
 import nz.ac.uclive.nse41.cancersociety.utilities.Subsection
 import nz.ac.uclive.nse41.cancersociety.utilities.getCancerInfoFromJson
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -54,7 +53,7 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
     val selectedCancer = cancerInfo?.cancers?.find { it.cancer == cancerType }
     val whoCanGetScreenedSubSection = selectedCancer?.subsections?.find { it.subsection == "Who can get screened" }
 
-    Log.d("we on wuiz", "we on who can")
+    //Times how long user spent on the screen - for internal purposes only
 
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
 
@@ -77,7 +76,7 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
                 if (fullSequence) {
                     CustomProgressBar(
                         currentScreenIndex = 1,
-                        modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f)  // Centers the progress bar inside the Box
+                        modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f)
                     )
                 }
                 Column(
@@ -100,26 +99,6 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
 
                 }
 
-
-                val offsetX = remember { Animatable(0f) }
-
-                // Define the shaking animation
-                LaunchedEffect(Unit) {
-                    while (true) {
-                        offsetX.animateTo(
-                            targetValue = 10f,
-                            animationSpec = tween(durationMillis = 100, easing = { it })
-                        )
-                        offsetX.animateTo(
-                            targetValue = -10f,
-                            animationSpec = tween(durationMillis = 100, easing = { it })
-                        )
-                        offsetX.animateTo(
-                            targetValue = 0f,
-                            animationSpec = tween(durationMillis = 100, easing = { it })
-                        )
-                    }
-                }
 
 
 
@@ -157,6 +136,9 @@ fun WhoCanGetScreenedScreen(navController: NavController, fullSequence: Boolean,
     }
 }
 
+/**
+ * Displays the image of the person with the age they can get screened - used for the pager.
+ */
 @Composable
 fun EligibilityItem(imageRes: Int, text: String) {
     Column(
@@ -182,28 +164,13 @@ fun EligibilityItem(imageRes: Int, text: String) {
     }
 }
 
-fun saveLogToFile(context: Context, screenName: String, timeSpent: Long, cancerType: String) {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault())
-    val timestamp = dateFormat.format(Date())
-    val log = "$timestamp $screenName $cancerType: $timeSpent ms\n"
 
-    // Ensure the external storage directory is writable
-    if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-        val file = File(ContextCompat.getExternalFilesDirs(context, null)[0], "screen_logs.txt")
-        FileOutputStream(file, true).use {
-            OutputStreamWriter(it).use { writer ->
-                writer.append(log)
-            }
-        }
-        Log.d("saveLogToFile", "Log saved: $log")
-        Log.d("saveLogToFile", "File path: ${file.absolutePath}")
-    } else {
-        Log.e("saveLogToFile", "External storage is not writable")
-    }
-}
-
-
-
+/**
+ * This pager is to display the 3 different slides for the who can get screened screen
+ * The first slide of the pagers shows the minimum age to get screened
+ * The second slide shows the maximum age
+ * The third slide shows a generic message the same for all cancers.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) {
@@ -246,6 +213,7 @@ fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) 
                 contentAlignment = Alignment.Center
             ) {
 
+                //To use a different mix of men/women images for bowel cancer vs other cancer types
                 val images = if (cancerType == "Bowel Cancer") {
                     listOf(
                         R.drawable.men1,
@@ -271,11 +239,11 @@ fun PagerStepThree(cancerType: String, whoCanGetScreenedSubSection: Subsection) 
                     }
                 }
 
-                // Display each EligibilityItem manually
                 val info = whoCanGetScreenedSubSection.info.getOrNull(pageIndex)
                 val imageRes = images.getOrNull(pageIndex) ?: R.drawable.women1
 
                 if (info != null) {
+                    //displays the age with the person image
                     EligibilityItem(imageRes = imageRes, text = info)
                 }
             }

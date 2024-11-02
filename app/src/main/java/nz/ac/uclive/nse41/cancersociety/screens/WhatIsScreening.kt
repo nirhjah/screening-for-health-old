@@ -26,20 +26,23 @@ import kotlinx.coroutines.delay
 import nz.ac.uclive.nse41.cancersociety.CustomProgressBar
 import nz.ac.uclive.nse41.cancersociety.R
 import nz.ac.uclive.nse41.cancersociety.navigation.Screens
-import nz.ac.uclive.nse41.cancersociety.screens.saveLogToFile
 import nz.ac.uclive.nse41.cancersociety.ui.theme.CancerSocietyTheme
-import nz.ac.uclive.nse41.cancersociety.ui.theme.Orange
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveFontSize
 import nz.ac.uclive.nse41.cancersociety.utilities.responsiveHospitalImage
+import nz.ac.uclive.nse41.cancersociety.utilities.saveLogToFile
 
+/**
+ * The What is Screening screens shows a simple animation of 3 people moving through a hospital, showing a simple definition
+ * of what screening means.
+ */
 @Composable
 fun WhatIsScreening(navController: NavController, fullSequence: Boolean, cancerType: String?) {
     val context = LocalContext.current
 
     var isButtonEnabled by remember { mutableStateOf(false) }
 
+    //Times how long user spent on the screen - for internal purposes only
     var startTime by remember { mutableStateOf(System.currentTimeMillis()) }
-
     DisposableEffect(Unit) {
         onDispose {
             val timeSpent = System.currentTimeMillis() - startTime

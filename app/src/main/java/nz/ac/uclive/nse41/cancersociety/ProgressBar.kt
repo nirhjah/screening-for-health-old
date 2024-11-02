@@ -18,6 +18,7 @@ import nz.ac.uclive.nse41.cancersociety.ui.theme.Purple80
 
 /**
  * Progress bar adapated from tutorial https://www.youtube.com/watch?v=SrSk8jErjPU
+ * This progress bar is used in all of the screens if the user goes through the full sequence, to show their progress.
  */
 @Composable
 fun CustomProgressBar(
