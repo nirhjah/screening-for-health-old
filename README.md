@@ -93,6 +93,8 @@ This has code related to reading the JSON files for quiz questions and informati
 
 This app was developed for the Cancer Society.
 
+Email nirhjah.selvarajah@gmail.com with any questions
+
 ## License
 
 Images from svgrepo.com have been used for this application, and the following describes the licenses used for the images:
