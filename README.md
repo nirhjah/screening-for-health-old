@@ -63,10 +63,6 @@ Follow these steps to connect to the device over a USB connection.
 
 https://developer.android.com/studio/run/device#connect
 
-### Google Play Store
-
-TBD
-
 
 ## Code Structure
 
@@ -89,7 +85,7 @@ This holds the colours and themes used for the app styling
 This has code related to reading the JSON files for quiz questions and information, and also code on making different elements of the page responsive to screen size
 
 
-## Authors and acknowledgment
+## Authors and acknowledgement
 
 This app was developed for the Cancer Society.
 
